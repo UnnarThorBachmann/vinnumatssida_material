@@ -4,6 +4,9 @@ import MenuItem from 'material-ui/MenuItem';
 import AgeView from './ageView.js';
 import LaunaflokkurView from './launaflokkurView.js';
 import ThrepView from './threpView.js';
+import TextField from 'material-ui/TextField';
+import {grey900,deepOrangeA400} from 'material-ui/styles/colors';
+
 
 const styles = {
   main: {
@@ -23,16 +26,34 @@ const styles = {
 
 
 export default class AboutTeacherView extends Component {
-  
+  state = {
+    value: 0
+  };
+
+  handleChange = (event, index, value) => {
+    this.setState({value});
+    console.log('prump');
+
+  };
+
   render() {
     return (
       <div style={styles.main}>
         <h3>Um kennarann</h3>
-        <AgeView/>
+        <AgeView textalitur={grey900} focuslitur={deepOrangeA400}/>
         <br/>
-        <LaunaflokkurView/>
+        <TextField
+            value={this.state.value}
+            floatingLabelText="C-hluti (klst)"
+            floatingLabelStyle={{color: grey900}}
+            underlineFocusStyle={{borderColor: deepOrangeA400}}
+            onChange={this.handleChange}
+
+        />
         <br/>
-        <ThrepView/>
+        <LaunaflokkurView textalitur={grey900} focuslitur={deepOrangeA400}/>
+        <br/>
+        <ThrepView textalitur={grey900} focuslitur={deepOrangeA400}/>
         <br/>
       </div>
     );

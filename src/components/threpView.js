@@ -18,12 +18,14 @@ export default class ThrepView extends Component {
       
         <SelectField
           floatingLabelText="Þrep"
+          floatingLabelStyle={{color: this.props.grey900}}
+          underlineFocusStyle={{borderColor: this.props.deepOrangeA400}}
           value={this.state.value}
           onChange={this.handleChange}
           maxHeight={200}
         >
         {
-          threp.map((item)=> <MenuItem value={item} primaryText={item}/>)
+          threp.map((item)=> <MenuItem key={item} value={item} primaryText={item}/>)
         }
         </SelectField>
     );

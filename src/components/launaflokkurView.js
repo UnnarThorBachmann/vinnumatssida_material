@@ -15,12 +15,14 @@ export default class LaunaflokkurView extends Component {
       
         <SelectField
           floatingLabelText="Launaflokkur"
+          floatingLabelStyle={{color: this.props.grey900}}
           value={this.state.value}
           onChange={this.handleChange}
           maxHeight={200}
+          underlineFocusStyle={{borderColor: this.props.deepOrangeA400}}
         >
         {
-          launaflokkar.map((item)=> <MenuItem value={item} primaryText={item}/>)
+          launaflokkar.map((item)=> <MenuItem key={item} value={item} primaryText={item}/>)
         }
         </SelectField>
     );
