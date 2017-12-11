@@ -6,6 +6,8 @@ import LaunaflokkurView from './launaflokkurView.js';
 import ThrepView from './threpView.js';
 import TextField from 'material-ui/TextField';
 import {grey900,deepOrangeA400} from 'material-ui/styles/colors';
+import Toggle from 'material-ui/Toggle';
+
 
 
 const styles = {
@@ -27,13 +29,19 @@ const styles = {
 
 export default class AboutTeacherView extends Component {
   state = {
-    value: 0
+    value: 0,
+    toggled: false
   };
 
   handleChange = (event, index, value) => {
     this.setState({value});
-    console.log('prump');
 
+  };
+
+  handleToggle = (event, toggled) => {
+    this.setState({toggled: toggled});
+    console.log(this.state.toggled);
+    console.log(toggled);
   };
 
   render() {
@@ -50,11 +58,22 @@ export default class AboutTeacherView extends Component {
             onChange={this.handleChange}
 
         />
-        <br/>
+        <div style={{width: '50%'}}>
+        <Toggle
+          label="Viltu launaútreikninga?"
+          trackSwitchedStyle={{backgroundColor: deepOrangeA400}}
+          thumbSwitchedStyle={{backgroundColor: deepOrangeA400}}
+          onToggle={this.handleToggle}
+        />
+        </div>
+        {this.state.toggled && 
+        <div>
         <LaunaflokkurView textalitur={grey900} focuslitur={deepOrangeA400}/>
         <br/>
         <ThrepView textalitur={grey900} focuslitur={deepOrangeA400}/>
         <br/>
+        </div>
+        }
       </div>
     );
   }

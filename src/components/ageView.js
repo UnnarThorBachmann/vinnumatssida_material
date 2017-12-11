@@ -17,11 +17,11 @@ export default class AgeView extends Component {
       
         <SelectField
           floatingLabelText="Aldur"
-          floatingLabelStyle={{color: grey900}}
+          floatingLabelStyle={{color: this.props.textalitur}}
           value={this.state.value}
           onChange={this.handleChange}
-          underlineFocusStyle={{borderColor: this.props.deepOrangeA400}}
-
+          underlineFocusStyle={{borderColor: this.props.focuslitur}}
+          selectedMenuItemStyle={{color: this.props.focuslitur}}
         >
         {
           ages.map((item)=> <MenuItem key={item} value={item} primaryText={item} />)
