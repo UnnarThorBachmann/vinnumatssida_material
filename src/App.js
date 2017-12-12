@@ -6,7 +6,7 @@ import {grey900,deepOrangeA400} from 'material-ui/styles/colors';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import TabView from './components/tabView.js';
-import AboutTeacherView from './components/aboutTeacherView.js';
+import StepperProgress from './components/stepper.js';
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -17,6 +17,12 @@ const muiTheme = getMuiTheme({
     color: grey900,
     textColor: deepOrangeA400
   },
+  stepper: {
+        iconColor: deepOrangeA400
+    },
+  raisedButton:  {
+    backgroundColor: deepOrangeA400
+  }
 });
 
 class App extends Component {
@@ -26,7 +32,7 @@ class App extends Component {
       <MuiThemeProvider muiTheme={muiTheme}>
       <div>
         <TabView/>  
-        <AboutTeacherView/>  
+        <StepperProgress iconColor={deepOrangeA400}/>
       </div>
       </MuiThemeProvider>
     );

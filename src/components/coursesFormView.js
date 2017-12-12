@@ -5,6 +5,8 @@ import AgeView from './ageView.js';
 import LaunaflokkurView from './launaflokkurView.js';
 import ThrepView from './threpView.js';
 import StarfshlutfallView from './starfshlutfallView.js';
+import SynidaeminView from './synidaeminView.js';
+
 import TextField from 'material-ui/TextField';
 import {grey900,deepOrangeA400} from 'material-ui/styles/colors';
 import Toggle from 'material-ui/Toggle';
@@ -28,35 +30,35 @@ const styles = {
 };
 
 
-export default class AboutTeacherView extends Component {
+export default class CoursesFormView extends Component {
 
     state = {
-      value: 0,
-      laun: false,
+      heiti: 'STÆR2HS05',
+      einingar: 3,
       starfshlutfall: false,
-      errorText: ''
+      errorTextHeiti: '',
+      errorTextEiningar: ''
     }
   
 
   handleChange = (event) => {
     
-    this.setState({value: event.target.value,
-                  errorText: (isNaN(event.target.value.replace(',','.')) || event.target.value.trim() === '')? 'Verður að hafa tölu': ''
+    this.setState({heiti: event.target.value,
+                  errorTextHeiti: event.target.value === '' ? 'Hvað heitir áfanginn?': ''
+
+    });    
+  };
+  handleChangeEiningar = (event) => {
+    
+     this.setState({einingar: event.target.value,
+                  errorTextEiningar: (isNaN(event.target.value.replace(',','.')) || event.target.value.trim() === '')? 'Verður að hafa tölu': ''
 
     });
     
-
-  };
-
-  handleStarfshlutfall = (event, toggled) => {
-    this.setState({starfshlutfall: this.state.laun ? true: toggled});
     
+
   };
 
-  handleLaun = (event, toggled) => {
-    this.setState({starfshlutfall: toggled, laun: toggled});
-    
-  };
 
   render() {
     return (
@@ -66,23 +68,28 @@ export default class AboutTeacherView extends Component {
                       justifyContent: 'flex-start'}}
         >
           <div style={styles.main}>
-            <h3>Reiknar vinnumat/laun á önn</h3>
-              <p>Reiknar sjálkrafa út vinnumat í A-hluta. Veljið fullt vinnumat eða launaútreikninga eftir þörfum</p>
-              <br/>
-              <Toggle
-                label="Fullt vinnumat (A + B + C)"
-                trackSwitchedStyle={{backgroundColor: deepOrangeA400}}
-                thumbSwitchedStyle={{backgroundColor: deepOrangeA400}}
-                onToggle={this.handleStarfshlutfall}
-              />
-              <br/>
-              <Toggle
-                label="Reikna Laun"
-                trackSwitchedStyle={{backgroundColor: deepOrangeA400}}
-                thumbSwitchedStyle={{backgroundColor: deepOrangeA400}}
-                onToggle={this.handleLaun}
-              />
+          
+              <TextField
+                value={this.state.heiti}
+                floatingLabelText="Heiti"
+                floatingLabelStyle={{color: grey900}}
+                underlineFocusStyle={{borderColor: deepOrangeA400}}
+                onChange={this.handleChange}
+                errorText={this.state.errorTextHeiti}
 
+              />
+              <br/>
+              <TextField
+                value={this.state.einingar}
+                floatingLabelText="Einingar"
+                floatingLabelStyle={{color: grey900}}
+                underlineFocusStyle={{borderColor: deepOrangeA400}}
+                onChange={this.handleChangeEiningar}
+                errorText={this.state.errorTextEiningar}
+
+              />
+              <br/>
+              <SynidaeminView textalitur={grey900} focuslitur={deepOrangeA400}/>
           </div>
           {this.state.starfshlutfall &&
           <div style={styles.main}>
@@ -95,9 +102,11 @@ export default class AboutTeacherView extends Component {
               underlineFocusStyle={{borderColor: deepOrangeA400}}
               onChange={this.handleChange}
               errorText={this.state.errorText}
+
             />
             <br/>
             <StarfshlutfallView/>
+
           </div>
           }
           {this.state.laun &&
