@@ -38,9 +38,9 @@ class StepperProgress extends React.Component {
       case 1:
         return <CoursesFormView/>;
       case 2:
-        return 'This is the bit I really care about!';
+        return 'Hér munu niðurstöður birtast';
       default:
-        return 'You\'re a long way from home sonny jim!';
+        return 'Kemst ekki';
     }
   }
 
@@ -71,8 +71,8 @@ class StepperProgress extends React.Component {
                   this.setState({stepIndex: 0, finished: false});
                 }}
               >
-                Click here
-              </a> to reset the example.
+                Byrja aftur
+              </a> Niðurstöður koma hér fyrir neðan
             </p>
           ) : (
             <div>
@@ -87,7 +87,7 @@ class StepperProgress extends React.Component {
                 <RaisedButton
                   label={stepIndex === 2 ? 'Enda' : 'Áfram'}
                   backgroundColor={this.props.iconColor}
-                  labelColor='white'
+                  labelColor='#FFFFFF'
                   onClick={this.handleNext}
                   disabled={false}
                 />

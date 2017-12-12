@@ -20,9 +20,7 @@ const muiTheme = getMuiTheme({
   stepper: {
         iconColor: deepOrangeA400
     },
-  raisedButton:  {
-    backgroundColor: deepOrangeA400
-  }
+ 
 });
 
 class App extends Component {

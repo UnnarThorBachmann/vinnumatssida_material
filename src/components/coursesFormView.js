@@ -6,15 +6,23 @@ import LaunaflokkurView from './launaflokkurView.js';
 import ThrepView from './threpView.js';
 import StarfshlutfallView from './starfshlutfallView.js';
 import SynidaeminView from './synidaeminView.js';
+import HeitiView from './heitiView.js';
+import EiningarView from './einingarView.js';
+import VikurView from './vikurView.js';
+import LengdView from './lengdView.js';
+import KennslustundirView from './kennslustundirView.js';
+import FjoldiView from './fjoldiView.js';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import Badge from 'material-ui/Badge';
 
-import TextField from 'material-ui/TextField';
+
 import {grey900,deepOrangeA400} from 'material-ui/styles/colors';
-import Toggle from 'material-ui/Toggle';
 
 
 
 const styles = {
-  main: {
+  thumb: {
     marginLeft: '1%',
     marginRight: '1%',
     marginTop: '1%',
@@ -31,34 +39,33 @@ const styles = {
 
 
 export default class CoursesFormView extends Component {
+  constructor(props) {
+    super(props);
 
-    state = {
-      heiti: 'STÆR2HS05',
+    this.state = {
+      heiti: '',
       einingar: 3,
-      starfshlutfall: false,
+      synidaemi: 'Stærðfræði',
+      kennsluvikur: 15,
+      kennslustundir: 6,
+      lengdKst: 40,
+      hopar: [25],
       errorTextHeiti: '',
       errorTextEiningar: ''
     }
-  
 
-  handleChange = (event) => {
+    this.changeHeiti= this.changeHeiti.bind(this);
+    this.addAfangi = this.addAfangi.bind(this);
+
+  }  
+
+  changeHeiti(h) {
+    this.setState({heiti: h})
     
-    this.setState({heiti: event.target.value,
-                  errorTextHeiti: event.target.value === '' ? 'Hvað heitir áfanginn?': ''
-
-    });    
   };
-  handleChangeEiningar = (event) => {
-    
-     this.setState({einingar: event.target.value,
-                  errorTextEiningar: (isNaN(event.target.value.replace(',','.')) || event.target.value.trim() === '')? 'Verður að hafa tölu': ''
-
-    });
-    
-    
-
-  };
-
+  addAfangi(event) {
+    console.log(this.state);
+  }
 
   render() {
     return (
@@ -67,59 +74,43 @@ export default class CoursesFormView extends Component {
                       flexWrap: 'wrap',
                       justifyContent: 'flex-start'}}
         >
-          <div style={styles.main}>
-          
-              <TextField
-                value={this.state.heiti}
-                floatingLabelText="Heiti"
-                floatingLabelStyle={{color: grey900}}
-                underlineFocusStyle={{borderColor: deepOrangeA400}}
-                onChange={this.handleChange}
-                errorText={this.state.errorTextHeiti}
-
-              />
+          <div style={styles.thumb}>
+              <h4>Grunnupplýsingar</h4>
+              <HeitiView textalitur={grey900} focuslitur={deepOrangeA400} heiti={this.state.heiti} changeHeiti={this.changeHeiti}/>
               <br/>
-              <TextField
-                value={this.state.einingar}
-                floatingLabelText="Einingar"
-                floatingLabelStyle={{color: grey900}}
-                underlineFocusStyle={{borderColor: deepOrangeA400}}
-                onChange={this.handleChangeEiningar}
-                errorText={this.state.errorTextEiningar}
-
-              />
+              <EiningarView textalitur={grey900} focuslitur={deepOrangeA400}/>
               <br/>
               <SynidaeminView textalitur={grey900} focuslitur={deepOrangeA400}/>
           </div>
-          {this.state.starfshlutfall &&
-          <div style={styles.main}>
-            <AgeView textalitur={grey900} focuslitur={deepOrangeA400}/>
-            <br/>
-            <TextField
-              value={this.state.value}
-              floatingLabelText="C-hluti (klst)"
-              floatingLabelStyle={{color: grey900}}
-              underlineFocusStyle={{borderColor: deepOrangeA400}}
-              onChange={this.handleChange}
-              errorText={this.state.errorText}
-
-            />
-            <br/>
-            <StarfshlutfallView/>
-
+          <div style={styles.thumb}>
+              <h4>Staðin kennsla</h4>
+              <VikurView textalitur={grey900} focuslitur={deepOrangeA400}/>
+              <br/>
+              <KennslustundirView textalitur={grey900} focuslitur={deepOrangeA400}/>
+              <br/>
+              <LengdView textalitur={grey900} focuslitur={deepOrangeA400}/>
           </div>
-          }
-          {this.state.laun &&
-          <div style={styles.main}>
-              
-                <div> 
-                <LaunaflokkurView textalitur={grey900} focuslitur={deepOrangeA400}/>
-                <br/>
-                <ThrepView textalitur={grey900} focuslitur={deepOrangeA400}/>
-                <br/>
-                </div>
+          <div style={styles.thumb}>
+              <h4>Fjöldatölur 
+                  <Badge
+                    badgeContent={1}
+                    primary={true}
+                    badgeStyle={{top: 20, right: 5,bottom: 20, backgroundColor: deepOrangeA400}}
+                  />
+              </h4>
+              <FjoldiView textalitur={grey900} focuslitur={deepOrangeA400}/>
+              <br/>
+              <div style={{width: '100%'}}>
+              <FloatingActionButton mini={true} style={{marginRight: 20, float: 'right'}} backgroundColor={deepOrangeA400}>
+                <ContentAdd />
+              </FloatingActionButton>
+              </div>
           </div>
-          }
+        </div>
+        <div style={{width: '100%'}}>
+              <FloatingActionButton style={{marginRight: 20, float: 'right'}} backgroundColor={deepOrangeA400} onClick={this.addAfangi}>
+                <ContentAdd />
+              </FloatingActionButton>
         </div>
       </div>
     );

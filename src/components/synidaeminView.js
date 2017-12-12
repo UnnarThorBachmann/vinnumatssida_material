@@ -21,7 +21,7 @@ const synidaemi = ['Almenn braut',
             'Verklegt'];
 export default class SynidaeminView extends Component {
   state = {
-    value: 'Stærðfræði'
+    value: 'Stærðfræði',
   };
 
   handleChange = (event, index, value) => this.setState({value});
@@ -29,8 +29,9 @@ export default class SynidaeminView extends Component {
   render() {
     return (
       
+        
         <SelectField
-          floatingLabelText="Synidaemi"
+          floatingLabelText="Sýnidæmi"
           floatingLabelStyle={{color: this.props.textalitur}}
           value={this.state.value}
           onChange={this.handleChange}
