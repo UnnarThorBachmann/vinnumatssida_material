@@ -21,11 +21,17 @@ const synidaemi = ['Almenn braut',
             'Verklegt'];
 export default class SynidaeminView extends Component {
   state = {
-    value: 'Stærðfræði',
+    value: ''
   };
 
-  handleChange = (event, index, value) => this.setState({value});
+  handleChange = (event, index, value) => {
+    
+    this.props.changeSynidaemi(value);
+  };
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({value: nextProps.synidaemi})
+  }
   render() {
     return (
       

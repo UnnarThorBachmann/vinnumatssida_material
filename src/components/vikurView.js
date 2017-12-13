@@ -11,7 +11,13 @@ export default class VikurView extends Component {
     value: 15,
   };
 
-  handleChange = (event, index, value) => this.setState({value});
+  handleChangeKennsluvikur = (event, index, value) => {
+    this.props.changeKennsluvikur(value);
+  }
+  
+  componentWillReceiveProps(nextProps) {
+    this.setState({value: nextProps.kennsluvikur});
+  }
 
   render() {
     return (
@@ -21,7 +27,7 @@ export default class VikurView extends Component {
           floatingLabelText="Kennsluvikur"
           floatingLabelStyle={{color: this.props.textalitur}}
           value={this.state.value}
-          onChange={this.handleChange}
+          onChange={this.handleChangeKennsluvikur}
           maxHeight={200}
           underlineFocusStyle={{borderColor: this.props.focuslitur}}
           selectedMenuItemStyle={{color: this.props.focuslitur}}

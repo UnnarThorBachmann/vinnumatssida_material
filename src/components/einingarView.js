@@ -5,17 +5,20 @@ import TextField from 'material-ui/TextField';
 
 export default class EiningarView extends Component {
   state = {
-    einingar: 3,
+    einingar: this.props.einingar,
     errorTextEiningar: ''
   };
 
-  handleChangeEiningar = (event) => {
-    
-     this.setState({einingar: event.target.value,
-                  errorTextEiningar: (isNaN(event.target.value.replace(',','.')) || event.target.value.trim() === '')? 'Verður að hafa tölu': ''
+  handleChangeEiningar = (event) => { 
+    this.props.changeEiningar(event.target.value);
+  };
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({einingar: nextProps.einingar,
+                  errorTextEiningar: (isNaN(nextProps.einingar.replace(',','.')) || nextProps.einingar.trim() === '')? 'Verður að hafa tölu': ''
 
     });
-  };
+  }
   render() {
     return (
       
@@ -25,7 +28,7 @@ export default class EiningarView extends Component {
           floatingLabelText="Einingar"
           floatingLabelStyle={{color: this.props.textalitur}}
           underlineFocusStyle={{borderColor: this.props.focuslitur}}
-          onChange={this.handleChange}
+          onChange={this.handleChangeEiningar}
           errorText={this.state.errorTextEiningar}
         />
     );

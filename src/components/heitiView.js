@@ -11,13 +11,13 @@ export default class HeitiView extends Component {
 
 
   handleChange = (event) => {
-    event.preventDefault();
-    this.setState({heiti: event.target.value,
-      errorTextHeiti: event.target.value === '' ? 'Hvað heitir áfanginn?': ''
-    });
     this.props.changeHeiti(event.target.value);    
   };
-
+  componentWillReceiveProps(nextProps) {
+    this.setState({heiti: nextProps.heiti,
+      errorTextHeiti: nextProps.heiti === '' ? 'Hvað heitir áfanginn?': ''
+    });
+  }
 
   render() {
     return (

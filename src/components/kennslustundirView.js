@@ -11,7 +11,13 @@ export default class KennslustundirView extends Component {
     value: 6,
   };
 
-  handleChange = (event, index, value) => this.setState({value});
+  handleChangeKennslustundir = (event, index, value) => {
+    this.props.changeKennslustundir(value);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({value: nextProps.kennslustundir});
+  }
 
   render() {
     return (
@@ -21,7 +27,7 @@ export default class KennslustundirView extends Component {
           floatingLabelText="Fjöldi kennslustunda á viku"
           floatingLabelStyle={{color: this.props.textalitur}}
           value={this.state.value}
-          onChange={this.handleChange}
+          onChange={this.handleChangeKennslustundir}
           maxHeight={200}
           underlineFocusStyle={{borderColor: this.props.focuslitur}}
           selectedMenuItemStyle={{color: this.props.focuslitur}}

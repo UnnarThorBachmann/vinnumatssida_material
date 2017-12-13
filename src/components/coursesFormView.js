@@ -44,25 +44,52 @@ export default class CoursesFormView extends Component {
 
     this.state = {
       heiti: '',
-      einingar: 3,
+      einingar: '3',
       synidaemi: 'Stærðfræði',
       kennsluvikur: 15,
       kennslustundir: 6,
       lengdKst: 40,
       hopar: [25],
-      errorTextHeiti: '',
-      errorTextEiningar: ''
+
     }
 
-    this.changeHeiti= this.changeHeiti.bind(this);
+    this.changeHeiti = this.changeHeiti.bind(this);
+    this.changeEiningar = this.changeEiningar.bind(this);
+    this.changeSynidaemi = this.changeSynidaemi.bind(this);
+    this.changeKennsluvikur = this.changeKennsluvikur.bind(this);
+    this.changeKennslustundir = this.changeKennslustundir.bind(this);
+    this.changeLengd = this.changeLengd.bind(this);
+
     this.addAfangi = this.addAfangi.bind(this);
 
   }  
 
-  changeHeiti(h) {
-    this.setState({heiti: h})
+  changeHeiti(heiti) {
+    this.setState({heiti: heiti})
     
   };
+
+  changeEiningar(einingar) {
+    this.setState({einingar: einingar})
+    
+  };
+
+  changeSynidaemi(synidaemi) {
+    this.setState({synidaemi: synidaemi})
+  }
+
+  changeKennsluvikur(kennsluvikur) {
+    this.setState({kennsluvikur: kennsluvikur})
+  }
+
+  changeKennslustundir(kennslustundir) {
+    this.setState({kennslustundir: kennslustundir})
+  }
+
+  changeLengd(lengd) {
+    this.setState({lengdKst: lengd})
+  }
+
   addAfangi(event) {
     console.log(this.state);
   }
@@ -78,17 +105,17 @@ export default class CoursesFormView extends Component {
               <h4>Grunnupplýsingar</h4>
               <HeitiView textalitur={grey900} focuslitur={deepOrangeA400} heiti={this.state.heiti} changeHeiti={this.changeHeiti}/>
               <br/>
-              <EiningarView textalitur={grey900} focuslitur={deepOrangeA400}/>
+              <EiningarView textalitur={grey900} focuslitur={deepOrangeA400} einingar={this.state.einingar} changeEiningar={this.changeEiningar}/>
               <br/>
-              <SynidaeminView textalitur={grey900} focuslitur={deepOrangeA400}/>
+              <SynidaeminView textalitur={grey900} focuslitur={deepOrangeA400} synidaemi={this.state.synidaemi} changeSynidaemi={this.changeSynidaemi}/>
           </div>
           <div style={styles.thumb}>
               <h4>Staðin kennsla</h4>
-              <VikurView textalitur={grey900} focuslitur={deepOrangeA400}/>
+              <VikurView textalitur={grey900} focuslitur={deepOrangeA400} kennsluvikur={this.state.kennsluvikur} changeKennsluvikur={this.changeKennsluvikur}/>
               <br/>
-              <KennslustundirView textalitur={grey900} focuslitur={deepOrangeA400}/>
+              <KennslustundirView textalitur={grey900} focuslitur={deepOrangeA400} kennslustundir={this.state.kennslustundir} changeKennslustundir={this.changeKennslustundir}/>
               <br/>
-              <LengdView textalitur={grey900} focuslitur={deepOrangeA400}/>
+              <LengdView textalitur={grey900} focuslitur={deepOrangeA400} lengd={this.state.lengdKst} changeLengd={this.changeLengd}/>
           </div>
           <div style={styles.thumb}>
               <h4>Fjöldatölur 

@@ -11,7 +11,13 @@ export default class LengdView extends Component {
     value: 40,
   };
 
-  handleChange = (event, index, value) => this.setState({value});
+  handleChangeLengd = (event, index, value) => {
+    this.props.changeLengd(value);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({value: nextProps.lengd});
+  }
 
   render() {
     return (
@@ -21,7 +27,7 @@ export default class LengdView extends Component {
           floatingLabelText="Lengd kennslustunda í mín."
           floatingLabelStyle={{color: this.props.textalitur}}
           value={this.state.value}
-          onChange={this.handleChange}
+          onChange={this.handleChangeLengd}
           maxHeight={200}
           underlineFocusStyle={{borderColor: this.props.focuslitur}}
           selectedMenuItemStyle={{color: this.props.focuslitur}}
