@@ -59,8 +59,11 @@ export default class CoursesFormView extends Component {
     this.changeKennsluvikur = this.changeKennsluvikur.bind(this);
     this.changeKennslustundir = this.changeKennslustundir.bind(this);
     this.changeLengd = this.changeLengd.bind(this);
+    this.changeFjoldi = this.changeFjoldi.bind(this);
+
 
     this.addAfangi = this.addAfangi.bind(this);
+    this.addHopur = this.addHopur.bind(this);
 
   }  
 
@@ -90,6 +93,25 @@ export default class CoursesFormView extends Component {
     this.setState({lengdKst: lengd})
   }
 
+  changeFjoldi(index,fjoldi) {
+    this.setState((state)=> {
+      let hopar_nyr = state.hopar;
+      hopar_nyr[index] = fjoldi;
+      return {...state,
+              hopar: hopar_nyr
+      }
+    });
+  }
+  addHopur(event) {
+    this.setState((state)=> {
+      let hopar_nyr = state.hopar;
+      hopar_nyr.push(25);
+      return {
+          ...state,
+          hopar: hopar_nyr
+      }
+    });
+  }
   addAfangi(event) {
     console.log(this.state);
   }
@@ -120,15 +142,21 @@ export default class CoursesFormView extends Component {
           <div style={styles.thumb}>
               <h4>Fjöldatölur 
                   <Badge
-                    badgeContent={1}
+                    badgeContent={this.state.hopar.length}
                     primary={true}
                     badgeStyle={{top: 20, right: 5,bottom: 20, backgroundColor: deepOrangeA400}}
                   />
               </h4>
-              <FjoldiView textalitur={grey900} focuslitur={deepOrangeA400}/>
+              {
+                this.state.hopar.map((item,index) => <FjoldiView textalitur={grey900} focuslitur={deepOrangeA400} key={index} index={index} fjoldi={item} changeFjoldi={this.changeFjoldi}/>)
+              }
               <br/>
               <div style={{width: '100%'}}>
-              <FloatingActionButton mini={true} style={{marginRight: 20, float: 'right'}} backgroundColor={deepOrangeA400}>
+              <FloatingActionButton mini={true} 
+                                    style={{marginRight: 20, float: 'right'}} 
+                                    backgroundColor={deepOrangeA400}
+                                    onClick={this.addHopur}
+              >
                 <ContentAdd />
               </FloatingActionButton>
               </div>

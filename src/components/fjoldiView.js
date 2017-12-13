@@ -12,8 +12,15 @@ export default class FjoldiView extends Component {
     value: 25,
   };
 
-  handleChange = (event, index, value) => this.setState({value});
-
+  handleChangeFjoldi = (event, index, value) => {
+    let i = this.props.index;
+    this.props.changeFjoldi(i,value);
+    console.log(i)
+  }
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+    this.setState({value: nextProps.fjoldi});
+  }
   render() {
     return (
       
@@ -22,7 +29,7 @@ export default class FjoldiView extends Component {
           floatingLabelText="Hópastærð"
           floatingLabelStyle={{color: this.props.textalitur}}
           value={this.state.value}
-          onChange={this.handleChange}
+          onChange={this.handleChangeFjoldi}
           maxHeight={200}
           underlineFocusStyle={{borderColor: this.props.focuslitur}}
           selectedMenuItemStyle={{color: this.props.focuslitur}}
