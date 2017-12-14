@@ -13,6 +13,8 @@ import LengdView from './lengdView.js';
 import KennslustundirView from './kennslustundirView.js';
 import FjoldiView from './fjoldiView.js';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import ContentRemove from 'material-ui/svg-icons/content/remove';
+
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Badge from 'material-ui/Badge';
 
@@ -66,6 +68,7 @@ export default class CoursesFormView extends Component {
 
     this.addAfangi = this.addAfangi.bind(this);
     this.addHopur = this.addHopur.bind(this);
+    this.removeHopur = this.removeHopur.bind(this);
 
   }  
 
@@ -119,6 +122,15 @@ export default class CoursesFormView extends Component {
       }
     });
   }
+  removeHopur(event) {
+    this.setState((state)=> {
+      let hopar_nyr = state.hopar.length > 1 ?state.hopar.slice(0,state.hopar.length-1): state.hopar;
+      return {
+          ...state,
+          hopar: hopar_nyr
+      }
+    });
+  }
   addAfangi(event) {
     console.log(this.state);
   }
@@ -165,6 +177,13 @@ export default class CoursesFormView extends Component {
                                     onClick={this.addHopur}
               >
                 <ContentAdd />
+              </FloatingActionButton>
+              <FloatingActionButton mini={true} 
+                                    style={{marginRight: 20, float: 'right'}} 
+                                    backgroundColor={deepOrangeA400}
+                                    onClick={this.removeHopur}
+              >
+                <ContentRemove/>
               </FloatingActionButton>
               </div>
           </div>
