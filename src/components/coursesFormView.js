@@ -50,6 +50,8 @@ export default class CoursesFormView extends Component {
       kennslustundir: 6,
       lengdKst: 40,
       hopar: [25],
+      heitiValidated: false,
+      einingarValidatated: true
 
     }
 
@@ -68,12 +70,17 @@ export default class CoursesFormView extends Component {
   }  
 
   changeHeiti(heiti) {
-    this.setState({heiti: heiti})
+    
+    this.setState({heiti: heiti,
+                    heitiValidated: heiti.trim() !== ''
+    })
     
   };
 
   changeEiningar(einingar) {
-    this.setState({einingar: einingar})
+    this.setState({einingar: einingar,
+      einingarValidated: (isNaN(einingar.replace(',','.')) || einingar.trim() === '')? true:false
+    })
     
   };
 
@@ -163,7 +170,7 @@ export default class CoursesFormView extends Component {
           </div>
         </div>
         <div style={{width: '100%'}}>
-              <FloatingActionButton style={{marginRight: 20, float: 'right'}} backgroundColor={deepOrangeA400} onClick={this.addAfangi}>
+              <FloatingActionButton style={{marginRight: 20, float: 'right'}} disabled={!this.state.heitiValidated || this.state.einingarValidated} backgroundColor={deepOrangeA400} onClick={this.addAfangi}>
                 <ContentAdd />
               </FloatingActionButton>
         </div>

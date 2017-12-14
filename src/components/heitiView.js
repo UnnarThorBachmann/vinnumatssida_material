@@ -6,7 +6,7 @@ import TextField from 'material-ui/TextField';
 export default class HeitiView extends Component {
   state = {
     heiti: this.props.heiti,
-    errorTextHeiti: ''
+    errorTextHeiti: 'Hvað heitir áfanginn?'
   };
 
 

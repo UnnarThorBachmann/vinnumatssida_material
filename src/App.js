@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {grey900,deepOrangeA400} from 'material-ui/styles/colors';
+import {grey900,grey50,deepOrangeA400} from 'material-ui/styles/colors';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import TabView from './components/tabView.js';
@@ -13,9 +13,9 @@ const muiTheme = getMuiTheme({
     textColor: grey900,
   },
   appBar: {
-    height: 70,
-    color: grey900,
-    textColor: deepOrangeA400
+    height: 50,
+    color: grey50,
+    textColor: deepOrangeA400,
   },
   stepper: {
         iconColor: deepOrangeA400
