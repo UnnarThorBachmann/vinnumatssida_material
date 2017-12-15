@@ -49,13 +49,20 @@ export default class AboutTeacherView extends Component {
   };
 
   handleStarfshlutfall = (event, toggled) => {
-    this.setState({starfshlutfall: this.state.laun ? true: toggled});
-    
+    this.setState({starfshlutfall: toggled});
+    /*
+    this.setState((state)=> {
+      return {value: state.value,
+              laun: toggled? (state.laun?true:false): false,
+              starfshlutfall: toggled,
+              errorText: state.errorText
+      }
+    })*/
   };
 
   handleLaun = (event, toggled) => {
-    this.setState({starfshlutfall: toggled, laun: toggled});
-    
+    this.setState({laun: toggled});
+    //this.handleStarfshlutfall(event,toggled);
   };
 
   render() {
@@ -81,6 +88,7 @@ export default class AboutTeacherView extends Component {
                 trackSwitchedStyle={{backgroundColor: deepOrangeA400}}
                 thumbSwitchedStyle={{backgroundColor: deepOrangeA400}}
                 onToggle={this.handleLaun}
+                disabled={!this.state.starfshlutfall}
               />
 
           </div>
@@ -100,9 +108,8 @@ export default class AboutTeacherView extends Component {
             <StarfshlutfallView/>
           </div>
           }
-          {this.state.laun &&
+          {(this.state.laun && this.state.starfshlutfall) &&
           <div style={styles.main}>
-              
                 <div> 
                 <LaunaflokkurView textalitur={grey900} focuslitur={deepOrangeA400}/>
                 <br/>
