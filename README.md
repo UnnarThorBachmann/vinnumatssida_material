@@ -1,4 +1,4 @@
-9th of December 2017
+16th of December 2017
 
 # Vinnumat (reduced version)
 
@@ -23,4 +23,5 @@ Node packages installed:
 2. react-router-dom: npm install --save react-router-dom
 3. material-ui: npm install material-ui
 4. react-swipeable-views: npm install react-swipeable-views
+5. react-reducer: npm install --save react-redux
 
