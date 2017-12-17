@@ -1,10 +1,27 @@
 export const SET_LAUNAFLOKKUR = 'SET_LAUNFLOKKUR';
 export const SET_THREP = 'SET_THREP';
 export const SET_VINNUSKYLDA = 'SET_VINNUSKYLDA';
-export const SET_C_HLUTI = 'SET_C_HLUTI';
+export const SET_ONNUR_STORF = 'SET_ONNUR_STORF';
 export const SET_STARFSHLUTFALL = 'SET_STARFSHLUTFALL';
+export const FULLT_STARF = 'FULLT_STARF';
+export const LAUN = 'LAUN';
 export const ADD_AFANGI = 'ADD_AFANGI';
 export const DELETE_AFANGI = 'DELETE_AFANGI';
+
+
+export function fulltStarf(fulltStarf) {
+  return {
+      type: FULLT_STARF,
+      fulltStarf: fulltStarf
+    }
+}
+
+export function laun(laun) {
+  return {
+      type: LAUN,
+      laun: laun
+    }
+}
 
 export function setLaunaflokkur(launaflokkur) {
   return {
@@ -23,14 +40,14 @@ export function setThrep(threp) {
 export function setVinnuskylda(aldur) {
   return {
       type: SET_VINNUSKYLDA,
-      vinnuskylda: aldur
+      aldur: aldur
     }
 }
 
-export function setCHluti(cHluti) {
+export function setOnnurStorf(timar) {
   return {
-      type: SET_C_HLUTI,
-      cHluti: cHluti
+      type: SET_ONNUR_STORF,
+      timar: timar
     }
 }
 

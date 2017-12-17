@@ -6,12 +6,12 @@ import LaunaflokkurView from './launaflokkurView.js';
 import ThrepView from './threpView.js';
 import StarfshlutfallView from './starfshlutfallView.js';
 import OnnurStorfView from './onnurStorfView.js';
+import {setLaunaflokkur,setThrep,setVinnuskylda,setStarfshlutfall,setOnnurStorf,fulltStarf,laun} from '../actions'; 
 
 import TextField from 'material-ui/TextField';
 import {grey900,deepOrangeA400} from 'material-ui/styles/colors';
 import Toggle from 'material-ui/Toggle';
 import {connect} from 'react-redux';
-import {setLaunaflokkur} from '../actions'; 
 
 
 
@@ -32,19 +32,11 @@ const styles = {
 };
 
 
-export default class AboutTeacherView extends Component {
+class AboutTeacherView extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      aldur: '30 ára-',
-      timar: '0',
-      starfshlutfall: 100,
-      launaflokkur: 1,
-      threp: 0,
-      laun: false,
-      fulltStarf: false,
-    }
+    
     this.changeOnnurStorf = this.changeOnnurStorf.bind(this);
     this.changeLaunaflokkur = this.changeLaunaflokkur.bind(this);
     this.changeThrep = this.changeThrep.bind(this);
@@ -57,37 +49,45 @@ export default class AboutTeacherView extends Component {
   }
 
   changeOnnurStorf(timar) {
-    console.log(timar);
-    this.setState({timar: timar})
+    const {dispatch} = this.props;
+    dispatch(setOnnurStorf(timar));
   }
 
   changeAldur(aldur) {
-    console.log(aldur);
-    this.setState({aldur: aldur})
+    const {dispatch} = this.props;
+    dispatch(setVinnuskylda(aldur));
+    
   }
 
   changeLaunaflokkur(launaflokkur) {
-    this.setState({launaflokkur: launaflokkur})
+    const {dispatch} = this.props;
+    dispatch(setLaunaflokkur(launaflokkur));
   }
 
   changeThrep(threp) {
-    this.setState({threp: threp})
+    const {dispatch} = this.props;
+    dispatch(setThrep(threp));
   }
 
  changeStarfshlutfall(starfshlutfall) {
-    this.setState({starfshlutfall: starfshlutfall})
+    const {dispatch} = this.props;
+    dispatch(setStarfshlutfall(starfshlutfall));
   }
 
   changeFulltStarf(event, toggled) {
-    this.setState({fulltStarf: toggled});
+    const {dispatch} = this.props;
+    dispatch(fulltStarf(toggled));
   
   };
 
   changeLaun (event, toggled) {
-    this.setState({laun: toggled});
+    const {dispatch} = this.props;
+    dispatch(laun(toggled));
   };
 
   render() {
+    const {launaflokkur, threp, timar, aldur, starfshlutfall,fulltStarf,laun} = this.props;
+    
     return (
       <div> 
         <div style={{display: 'flex',
@@ -110,47 +110,47 @@ export default class AboutTeacherView extends Component {
                 trackSwitchedStyle={{backgroundColor: deepOrangeA400}}
                 thumbSwitchedStyle={{backgroundColor: deepOrangeA400}}
                 onToggle={this.changeLaun}
-                disabled={!this.state.fulltStarf}
+                disabled={!fulltStarf}
               />
 
           </div>
-          {this.state.fulltStarf &&
+          {fulltStarf &&
           <div style={styles.main}>
             <AgeView textalitur={grey900} 
                       focuslitur={deepOrangeA400} 
-                      aldur={this.state.aldur} 
+                      aldur={aldur} 
                       changeAldur = {this.changeAldur}
             />
             <br/>
             <OnnurStorfView 
               textalitur={grey900} 
               focuslitur={deepOrangeA400} 
-              timar={this.state.timar} 
+              timar={timar} 
               changeOnnurStorf={this.changeOnnurStorf}
             />
             <br/>
             <StarfshlutfallView 
               textalitur={grey900} 
               focuslitur={deepOrangeA400} 
-              starfshlutfall={this.state.starfshlutfall} 
+              starfshlutfall={starfshlutfall} 
               changeStarfshlutfall={this.changeStarfshlutfall}
             />
           </div>
           }
-          {(this.state.laun && this.state.fulltStarf) &&
+          {(laun && fulltStarf) &&
           <div style={styles.main}>
                 <div> 
                 <LaunaflokkurView 
                   textalitur={grey900} 
                   focuslitur={deepOrangeA400}
-                  launaflokkur= {this.state.launaflokkur} 
+                  launaflokkur= {launaflokkur} 
                   changeLaunaflokkur={this.changeLaunaflokkur}
                 />
                 <br/>
                 <ThrepView 
                   textalitur={grey900} 
                   focuslitur={deepOrangeA400}
-                  threp= {this.state.threp} 
+                  threp= {threp} 
                   changeThrep={this.changeThrep}
                 />
                 <br/>
@@ -163,3 +163,14 @@ export default class AboutTeacherView extends Component {
   }
 }
 
+const mapStateToProps = (state)=> ({
+    launaflokkur: state.launaflokkur,
+    threp: state.threp,
+    timar: state.timar,
+    aldur: state.aldur,
+    starfshlutfall: state.starfshlutfall,
+    fulltStarf: state.fulltStarf,
+    laun: state.laun
+});
+
+export default connect(mapStateToProps)(AboutTeacherView)

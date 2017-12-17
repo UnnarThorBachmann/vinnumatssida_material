@@ -8,24 +8,26 @@ for (let i=0; i <= 100; i++) {
 }
 export default class StarfshlutfallView extends Component {
   state = {
-    value: this.props.starfshlutfall
+    starfshlutfall: this.props.starfshlutfall
   };
 
-  handleChange = (event,index,value) => this.props.changeStarfshlutfall(value); 
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({value: nextProps.starfshlutfall
-    });
+  handleChange= (event,index,value)=> {
+    this.props.changeStarfshlutfall(value); 
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({starfshlutfall: nextProps.starfshlutfall,
+    });
+  } 
 
   render() {
+
     return (
       
         <SelectField
           floatingLabelText="Starfshlutfall (%)"
           floatingLabelStyle={{color: this.props.textalitur}}
-          value={this.state.value}
+          value={this.state.starfshlutfall}
           onChange={this.handleChange}
           maxHeight={200}
           underlineFocusStyle={{borderColor: this.props.focuslitur}}
