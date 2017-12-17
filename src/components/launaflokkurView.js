@@ -5,10 +5,17 @@ import MenuItem from 'material-ui/MenuItem';
 const launaflokkar = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
 export default class LaunaflokkurView extends Component {
   state = {
-    value: 1
+    launaflokkur: this.props.launaflokkur
   };
 
-  handleChange = (event, index, value) => this.setState({value});
+  handleChange= (event,index,value)=> {
+    this.props.changeLaunaflokkur(value); 
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({launaflokkur: nextProps.launaflokkur,
+    });
+  }
 
   render() {
     return (
@@ -16,7 +23,7 @@ export default class LaunaflokkurView extends Component {
         <SelectField
           floatingLabelText="Launaflokkur"
           floatingLabelStyle={{color: this.props.textalitur}}
-          value={this.state.value}
+          value={this.state.launaflokkur}
           onChange={this.handleChange}
           maxHeight={200}
           underlineFocusStyle={{borderColor: this.props.focuslitur}}

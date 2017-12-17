@@ -23,5 +23,7 @@ Node packages installed:
 2. react-router-dom: npm install --save react-router-dom
 3. material-ui: npm install material-ui
 4. react-swipeable-views: npm install react-swipeable-views
-5. react-reducer: npm install --save react-redux
+5. react-dom: npm install react react-dom --save
+6. redux: npm install --save redux
+7. react-reducer: npm install --save react-redux
 

@@ -1,10 +1,10 @@
-const SET_LAUNAFLOKKUR = 'SET_LAUNFLOKKUR';
-const SET_THREP = 'SET_THREP';
-const SET_VINNUSKYLDA = 'SET_VINNUSKYLDA';
-const SET_C_HLUTI = 'SET_C_HLUTI';
-const SET_STARFSHLUTFALL = 'SET_STARFSHLUTFALL';
-const ADD_AFANGI = 'ADD_AFANGI';
-const DELETE_AFANGI = 'DELETE_AFANGI';
+export const SET_LAUNAFLOKKUR = 'SET_LAUNFLOKKUR';
+export const SET_THREP = 'SET_THREP';
+export const SET_VINNUSKYLDA = 'SET_VINNUSKYLDA';
+export const SET_C_HLUTI = 'SET_C_HLUTI';
+export const SET_STARFSHLUTFALL = 'SET_STARFSHLUTFALL';
+export const ADD_AFANGI = 'ADD_AFANGI';
+export const DELETE_AFANGI = 'DELETE_AFANGI';
 
 export function setLaunaflokkur(launaflokkur) {
   return {
@@ -37,7 +37,7 @@ export function setCHluti(cHluti) {
 export function setStarfshlutfall(starfshlutfall) {
   return {
       type: SET_STARFSHLUTFALL,
-      launaflokkur: launaflokkur
+      starfshlutfall: starfshlutfall
     }
 }
 

@@ -9,7 +9,7 @@ import {
 } from '../actions';
 
 
-export default function comments(state={},action) {
+export default function comments(state={launaflokkur: 1},action) {
   switch(action.type) {
       case  SET_LAUNAFLOKKUR:
         return {

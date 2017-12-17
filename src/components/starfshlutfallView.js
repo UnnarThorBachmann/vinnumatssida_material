@@ -8,10 +8,16 @@ for (let i=0; i <= 100; i++) {
 }
 export default class StarfshlutfallView extends Component {
   state = {
-    value: 100
+    value: this.props.starfshlutfall
   };
 
-  handleChange = (event, index, value) => this.setState({value});
+  handleChange = (event,index,value) => this.props.changeStarfshlutfall(value); 
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({value: nextProps.starfshlutfall
+    });
+  }
+
 
   render() {
     return (

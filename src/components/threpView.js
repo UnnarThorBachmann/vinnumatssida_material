@@ -8,11 +8,17 @@ for (let i = 0; i < 9; i++) {
 }
 export default class ThrepView extends Component {
   state = {
-    value: 0
+    threp: this.props.threp
   };
 
-  handleChange = (event, index, value) => this.setState({value});
+  handleChange= (event,index,value)=> {
+    this.props.changeThrep(value); 
+  }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({threp: nextProps.threp,
+    });
+  }
   render() {
     return (
       
@@ -20,7 +26,7 @@ export default class ThrepView extends Component {
           floatingLabelText="Þrep"
           floatingLabelStyle={{color: this.textalitur}}
           underlineFocusStyle={{borderColor: this.props.focuslitur}}
-          value={this.state.value}
+          value={this.state.threp}
           onChange={this.handleChange}
           maxHeight={200}
           selectedMenuItemStyle={{color: this.props.focuslitur}}
