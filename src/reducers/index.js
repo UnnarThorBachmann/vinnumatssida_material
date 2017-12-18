@@ -9,18 +9,9 @@ import {
  FULLT_STARF,
  LAUN
 } from '../actions';
-import {vinnuskylda,kennsluafslattur,Synidaemi} from '../helpers';
+import {vinnuskylda,kennsluafslattur,Synidaemi,initialState,getterState} from '../helpers';
 
-const initialState = {
-      aldur: '30 ára-',
-      vinnuskylda: 720,
-      timar: '0',
-      starfshlutfall: 100,
-      kennsluafslattur: 0,
-      launaflokkur: 1,
-      threp: 0,
-      afangar: {}
-    };
+
 export default function comments(state={...initialState},action) {
   switch(action.type) {
       case  SET_LAUNAFLOKKUR:
@@ -67,7 +58,8 @@ export default function comments(state={...initialState},action) {
             ...state.afangar,
             [action.afangi.heiti]: {
               ...action.afangi,
-              ...Synidaemi[action.afangi.synidaemi]
+              ...Synidaemi[action.afangi.synidaemi],
+              heiti: action.afangi.heiti
             }
           },
 

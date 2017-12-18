@@ -8,7 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import AboutTeacherView from './aboutTeacherView.js';
 import CoursesFormView from './coursesFormView.js';
-
+import Nidurstodur from './nidurstodur.js';
 class StepperProgress extends React.Component {
 
   state = {
@@ -38,7 +38,7 @@ class StepperProgress extends React.Component {
       case 1:
         return <CoursesFormView/>;
       case 2:
-        return 'Hér munu niðurstöður birtast';
+        return <Nidurstodur/>;
       default:
         return 'Kemst ekki';
     }

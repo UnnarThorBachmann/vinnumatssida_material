@@ -13,15 +13,31 @@ export function vinnuskylda(aldur) {
 export function kennsluafslattur(aldur) {
 	switch(aldur) {
 		case '55-60 ára':
-			return 1/24;
+			return (1/24*100);
 		case '60 ára+':
-			return 5/24;
+			return 5/24*100;
 		case '60 ára+ (17 tímar)':
-			return 7/24;	
+			return 7/24*100;	
 		default:
 			return 0;
 	}
 }
+
+export function talaToString(tala,digit) {
+	return tala.toFixed(digit).toString().replace('.',',');
+}
+
+export const initialState = {
+      aldur: '30 ára-',
+      vinnuskylda: 720,
+      timar: '0',
+      starfshlutfall: 100,
+      kennsluafslattur: 0,
+      launaflokkur: 1,
+      threp: 0,
+      afangar: {}
+};
+
 
 export const Synidaemi = {
   'Sjúkraliðanám': {

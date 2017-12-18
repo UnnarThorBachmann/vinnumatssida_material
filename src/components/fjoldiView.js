@@ -15,10 +15,8 @@ export default class FjoldiView extends Component {
   handleChangeFjoldi = (event, index, value) => {
     let i = this.props.index;
     this.props.changeFjoldi(i,value);
-    console.log(i)
   }
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     this.setState({value: nextProps.fjoldi});
   }
   render() {
