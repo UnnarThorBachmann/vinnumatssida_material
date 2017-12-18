@@ -17,6 +17,8 @@ import ContentRemove from 'material-ui/svg-icons/content/remove';
 
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Badge from 'material-ui/Badge';
+import {connect} from 'react-redux';
+import {addAfangi} from '../actions'; 
 
 
 import {grey900,deepOrangeA400} from 'material-ui/styles/colors';
@@ -40,7 +42,7 @@ const styles = {
 };
 
 
-export default class CoursesFormView extends Component {
+class CourseFormView extends Component {
   constructor(props) {
     super(props);
 
@@ -112,7 +114,7 @@ export default class CoursesFormView extends Component {
       }
     });
   }
-  addHopur(event) {
+  addHopur() {
     this.setState((state)=> {
       let hopar_nyr = state.hopar;
       hopar_nyr.push(25);
@@ -131,8 +133,9 @@ export default class CoursesFormView extends Component {
       }
     });
   }
-  addAfangi(event) {
-    console.log(this.state);
+  addAfangi() {
+    const {dispatch} = this.props;
+    dispatch(addAfangi(this.state));
   }
 
   render() {
@@ -198,3 +201,4 @@ export default class CoursesFormView extends Component {
   }
 }
 
+export default connect()(CourseFormView)

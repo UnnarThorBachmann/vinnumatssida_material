@@ -60,7 +60,7 @@ export function setStarfshlutfall(starfshlutfall) {
 
 export function addAfangi(afangi) {
   return {
-      type: SET_LAUNAFLOKKUR,
+      type: ADD_AFANGI,
       afangi: afangi
     }
 }
