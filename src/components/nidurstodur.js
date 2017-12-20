@@ -73,12 +73,23 @@ class Nidurstodur extends Component {
         configurable: true,
         get: function() { return 100*skerdingarprosenta(this.hopar.length)}
       });
+
+      Object.defineProperty(afangar[heiti], 'medalfjoldi', {
+        configurable: true,
+        get: function() { return this.hopar.reduce((summa,hopur)=>summa + hopur.fjoldi,0)/this.hopar.length;}
+      });
+      
+      Object.defineProperty(afangar[heiti], 'skerding', {
+        configurable: true,
+        get: function() { return (this.samtalsAnNemenda + vinnaVegnaNemenda(this.medalfjoldi,this))*(this.skerdingarprosenta)/100}
+      });
+
       const hopar = Object.keys(afangar[heiti].hopar);
       for (var hopur of hopar) {
       
         Object.defineProperty(afangar[heiti].hopar[hopur], 'vinnumat', {
         configurable: true,
-        get: function() {return afangar[heiti].samtalsAnNemenda + vinnaVegnaNemenda(this.fjoldi,afangar[heiti])}
+        get: function() {return afangar[heiti].samtalsAnNemenda + vinnaVegnaNemenda(this.fjoldi,afangar[heiti])-afangar[heiti].skerding}
       });
       }
 
