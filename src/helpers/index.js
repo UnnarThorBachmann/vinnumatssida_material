@@ -27,6 +27,43 @@ export function talaToString(tala,digit) {
 	return tala.toFixed(digit).toString().replace('.',',');
 }
 
+export function skerdingarprosenta(n) {
+	
+	return (n<=3)?0.08*(n-1)/n:0.08*(n-2)/n;
+}
+
+export function vinnaVegnaNemenda(nemfjoldi,self) {
+		
+		
+		let lagmark = self.lagmark;
+		let hamark_e = self.hamark_e;
+		let hamark_n = self.hamark_n;
+		let vinna_per_nemanda = parseFloat(self.einingar)*self.vinna_per_nemanda/3;
+			
+		let vinnumat = 0;
+		
+		if (nemfjoldi-hamark_e > 0) {
+			vinnumat += (nemfjoldi-hamark_e)*vinna_per_nemanda*2/60;
+			nemfjoldi = hamark_e;
+		}
+
+		if (nemfjoldi-hamark_n > 0 ) {
+			vinnumat += (nemfjoldi-hamark_n)*vinna_per_nemanda*1.20/60;
+			nemfjoldi = hamark_n;
+		}
+
+		if (nemfjoldi-lagmark > 0 ) {
+			vinnumat += (nemfjoldi-lagmark)*vinna_per_nemanda/60;
+			
+		}
+
+		nemfjoldi = lagmark;
+		vinnumat += lagmark*vinna_per_nemanda/60;
+
+		return vinnumat;
+
+	}
+
 export const initialState = {
       aldur: '30 ára-',
       vinnuskylda: 720,

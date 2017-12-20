@@ -53,7 +53,7 @@ class CourseFormView extends Component {
       kennsluvikur: 15,
       kennslustundir: 6,
       lengdKst: 40,
-      hopar: [25],
+      hopar: [{fjoldi: 25}],
       heitiValidated: false,
       einingarValidatated: true
 
@@ -108,7 +108,7 @@ class CourseFormView extends Component {
   changeFjoldi(index,fjoldi) {
     this.setState((state)=> {
       let hopar_nyr = state.hopar;
-      hopar_nyr[index] = fjoldi;
+      hopar_nyr[index] = {fjoldi: fjoldi};
       return {...state,
               hopar: hopar_nyr
       }
@@ -117,7 +117,7 @@ class CourseFormView extends Component {
   addHopur() {
     this.setState((state)=> {
       let hopar_nyr = state.hopar;
-      hopar_nyr.push(25);
+      hopar_nyr.push({fjoldi: 25});
       return {
           ...state,
           hopar: hopar_nyr
@@ -170,7 +170,7 @@ class CourseFormView extends Component {
                   />
               </h4>
               {
-                this.state.hopar.map((item,index) => <FjoldiView textalitur={grey900} focuslitur={deepOrangeA400} key={index} index={index} fjoldi={item} changeFjoldi={this.changeFjoldi}/>)
+                this.state.hopar.map((item,index) => <FjoldiView textalitur={grey900} focuslitur={deepOrangeA400} key={index} index={index} fjoldi={item.fjoldi} changeFjoldi={this.changeFjoldi}/>)
               }
               <br/>
               <div style={{width: '100%'}}>
