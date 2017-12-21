@@ -9,7 +9,7 @@ import {
  FULLT_STARF,
  LAUN
 } from '../actions';
-import {vinnuskylda,kennsluafslattur,Synidaemi,initialState,getterState} from '../helpers';
+import {vinnuskylda,kennsluafslattur,Synidaemi,initialState,getterState,addProps} from '../helpers';
 
 
 export default function comments(state={...initialState},action) {
@@ -52,17 +52,15 @@ export default function comments(state={...initialState},action) {
           laun: action.laun
         }
       case ADD_AFANGI:
+        const afangiExtended = addProps(action.afangi,Synidaemi[action.afangi.synidaemi]);
         return {
           ...state,
           afangar: {
             ...state.afangar,
             [action.afangi.heiti]: {
-              ...action.afangi,
-              ...Synidaemi[action.afangi.synidaemi],
-              heiti: action.afangi.heiti
+              ...afangiExtended
             }
-          },
-
+          }
         }
       case DELETE_AFANGI:
         return {

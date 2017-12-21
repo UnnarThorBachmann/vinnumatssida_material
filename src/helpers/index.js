@@ -27,12 +27,35 @@ export function talaToString(tala,digit) {
 	return tala.toFixed(digit).toString().replace('.',',');
 }
 
-export function skerdingarprosenta(n) {
+export const skerdingarprosenta = (n)=> {
 	
 	return (n<=3)?0.08*(n-1)/n:0.08*(n-2)/n;
 }
-
-export function vinnaVegnaNemenda(nemfjoldi,self) {
+export function addProps(afangi,synidaemi) {
+	
+	afangi = {...afangi, 
+			...synidaemi,
+			einingar: parseFloat(afangi.einingar.replace(',','.')),
+			heiti: afangi.heiti
+	};
+	
+	afangi.medalfjoldi = afangi.hopar.reduce((summa,hopur)=>summa + hopur.fjoldi,0)/afangi.hopar.length;
+	afangi.skerdingarprosenta = 100*skerdingarprosenta(afangi.hopar.length);
+	afangi.stadinKennsla = afangi.kennsluvikur*afangi.kennslustundir*afangi.lengdKst/60;
+	afangi.undirbuningurKennslu = afangi.stadinKennsla/40*afangi.undirb_kennslu;
+	afangi.fastirLidir = (afangi.timar_namsAetlun + afangi.verkefnisgerd+ afangi.onnur_vinna)*afangi.einingar/3;
+	afangi.samtalsAnNemenda = afangi.stadinKennsla+afangi.undirbuningurKennslu + afangi.fastirLidir
+	afangi.skerding = afangi.hopar.length==1?0:(afangi.samtalsAnNemenda + vinnaVegnaNemenda(afangi.medalfjoldi,afangi))*(afangi.skerdingarprosenta)/100;
+    afangi.hopar = afangi.hopar.map((hopur)=>{
+    	return {fjoldi: hopur.fjoldi,
+    			vinnumat: afangi.samtalsAnNemenda-afangi.skerding + vinnaVegnaNemenda(hopur.fjoldi,afangi)}
+   	});
+    	
+    afangi.vinnumat = afangi.hopar.reduce((summa,hopur)=> summa + hopur.vinnumat,0);
+   
+	return afangi;
+}
+export const vinnaVegnaNemenda = (nemfjoldi,self)=> {
 		
 		
 		let lagmark = self.lagmark;

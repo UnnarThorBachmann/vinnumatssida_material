@@ -116,6 +116,7 @@ class CourseFormView extends Component {
   }
   addHopur() {
     this.setState((state)=> {
+
       let hopar_nyr = state.hopar;
       hopar_nyr.push({fjoldi: 25});
       return {
@@ -135,7 +136,8 @@ class CourseFormView extends Component {
   }
   addAfangi() {
     const {dispatch} = this.props;
-    dispatch(addAfangi(this.state));
+
+    dispatch(addAfangi({...this.state}));
   }
 
   render() {
