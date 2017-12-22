@@ -9,7 +9,13 @@ import {
  FULLT_STARF,
  LAUN
 } from '../actions';
-import {vinnuskylda,kennsluafslattur,Synidaemi,initialState,getterState,addProps} from '../helpers';
+import {vinnuskylda,
+  kennsluafslattur,
+  Synidaemi,
+  initialState,
+  getterState,
+  addProps,
+  launatafla} from '../helpers';
 
 
 export default function comments(state={...initialState},action) {
@@ -17,12 +23,15 @@ export default function comments(state={...initialState},action) {
       case  SET_LAUNAFLOKKUR:
         return {
             ...state,
-          	launaflokkur: action.launaflokkur
+          	launaflokkur: action.launaflokkur,
+            grunnlaun: launatafla[action.launaflokkur][state.threp]
           }
       case SET_THREP:
         return {
             ...state,
-          	threp: action.threp
+          	threp: action.threp,
+            grunnlaun: launatafla[state.launaflokkur][action.threp]
+
           }
       case SET_VINNUSKYLDA:
         return {
@@ -39,7 +48,8 @@ export default function comments(state={...initialState},action) {
       case SET_STARFSHLUTFALL:
         return {
           ...state,
-          starfshlutfall: action.starfshlutfall
+          starfshlutfall: action.starfshlutfall,
+
         }
       case FULLT_STARF:
         return {

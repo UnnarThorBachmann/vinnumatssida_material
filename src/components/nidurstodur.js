@@ -48,9 +48,11 @@ class Nidurstodur extends Component {
       totalVinnumat,
       yfirvinna,
       vinnuskyldaTotal,
-      starfshlutfallReiknad} = this.props;
+      starfshlutfallReiknad,
+      yfirvinnulaun,
+      manadarlaun,
+      grunnlaun} = this.props;
       const heitin = Object.keys(afangar);
-  
     
     return (
       <div> 
@@ -66,6 +68,14 @@ class Nidurstodur extends Component {
               <ListItem innerDivStyle={{padding: '0%',margin:'0%'}} primaryText={`Starfshlutfall:`} secondaryText={`${talaToString(starfshlutfall,1)} %`}></ListItem>
               <ListItem innerDivStyle={{padding: '0%',margin:'0%'}} primaryText={`Kennsluafsláttur:`} secondaryText={`${talaToString(kennsluafslattur,1)} %`}></ListItem>
               <ListItem innerDivStyle={{padding: '0%',margin:'0%'}} primaryText={`Reiknað starfshlutfall:`} secondaryText={`${talaToString(starfshlutfallReiknad,1)} %`}></ListItem>
+              {
+                this.props.laun &&
+                <div>
+                  <ListItem innerDivStyle={{padding: '0%',margin:'0%'}} primaryText={`Launaflokkur:`} secondaryText={`${talaToString(launaflokkur,0)}`}></ListItem>
+                  <ListItem innerDivStyle={{padding: '0%',margin:'0%'}} primaryText={`Þrep:`} secondaryText={`${talaToString(threp,0)}`}></ListItem>
+
+                </div>
+              }
             </List>
         
         </div>
@@ -83,7 +93,7 @@ class Nidurstodur extends Component {
                     afangar[heiti].hopar.map((hopur,index)=>
                     <ListItem 
                     key={heiti + index.toString()} innerDivStyle={{padding: '0%',margin:'0%'}} 
-                    primaryText={`${heiti}-${index+1}:\t\t${talaToString(hopur.vinnumat,1)} klst`}/>))
+                    secondaryText={`${heiti}-${index+1}:\t\t${talaToString(hopur.vinnumat,1)} klst`}/>))
   
             }
             
@@ -99,15 +109,20 @@ class Nidurstodur extends Component {
               <div>
                 <List style={{padding: '0%',margin:'0%'}}> 
                   <ListItem 
-                      innerDivStyle={{padding: '0%',margin:'0%'}}
+                      innerDivStyle={{padding: '0%',margin:'0%',marginTop: '2%'}}
                       primaryText={'B-hluti'}
                       secondaryText={`${talaToString(vinnuskyldaB,1)} klst.`}
                   />
-                  <ListItem innerDivStyle={{padding: '0%',margin:'0%'}}
+                  <ListItem               
+                          innerDivStyle={{padding: '0%',margin:'0%',marginTop: '2%'}}
                             primaryText={'C-hluti'}
                             secondaryText={`Önnur vinna: ${timar} klst.`}
                   />
-                  
+                  <ListItem               
+                            innerDivStyle={{padding: '0%',margin:'0%', marginTop: '5%'}}
+                            primaryText={'Samtals (A+B+C):'}
+                            secondaryText={`${talaToString(totalVinnumat,1)} klst.`}
+                  />
                 </List>
               </div>
             }
@@ -122,12 +137,7 @@ class Nidurstodur extends Component {
                 primaryText={`A+B+C:`} 
                 secondaryText={`${talaToString(vinnuskyldaA,1)} + ${talaToString(vinnuskyldaB,1)} + ${talaToString(vinnuskyldaC,1)} = ${talaToString(vinnuskyldaTotal,1)} klst.`}></ListItem>              
             </List>
-            <h4 style={{marginBottom: '1%',marginTop: '3%'}}>Vinnumat</h4>   
-            <List style={{padding: '0%',margin:'0%'}}>
-              <ListItem innerDivStyle={{padding: '0%',margin:'0%'}} 
-                            secondaryText={`${talaToString(totalVinnumat,1)} klst.`}
-              />
-            </List>
+            
             <h4 style={{marginBottom: '1%',marginTop: '3%'}}>Vinnumat-vinnuskylda</h4>   
             <List style={{padding: '0%',margin:'0%'}}>
               <ListItem innerDivStyle={{padding: '0%',margin:'0%'}} 
@@ -140,6 +150,35 @@ class Nidurstodur extends Component {
                             secondaryText={`${talaToString(yfirvinna,1)} klst.`}
               />
             </List>
+            {
+            this.props.laun &&
+            <div>
+            <h4 style={{marginBottom: '1%',marginTop: '3%'}}>Grunnlaun</h4>   
+            <List style={{padding: '0%',margin:'0%'}}>
+              <ListItem innerDivStyle={{padding: '0%',margin:'0%'}} 
+                            secondaryText={`${talaToString(grunnlaun,1)} kr.`}
+              />
+            </List>
+            <h4 style={{marginBottom: '1%',marginTop: '3%'}}>Heildarlaun vegna yfirvinnu</h4>   
+            <List style={{padding: '0%',margin:'0%'}}>
+              <ListItem innerDivStyle={{padding: '0%',margin:'0%'}} 
+                            secondaryText={`${talaToString(yfirvinna,1)} x 1,0385% x grunnlaun`}
+              />
+              <ListItem innerDivStyle={{padding: '0%',margin:'0%'}} 
+                            secondaryText={`= ${talaToString(yfirvinnulaun,1)} kr.`}
+              />
+            </List>
+            <h4 style={{marginBottom: '1%',marginTop: '3%'}}>Mánaðarlaun (4 greiðslur)</h4>   
+            <List style={{padding: '0%',margin:'0%'}}>
+              <ListItem innerDivStyle={{padding: '0%',margin:'0%'}} 
+                            secondaryText={manadarlaun.texti}
+              />
+              <ListItem innerDivStyle={{padding: '0%',margin:'0%'}} 
+                            secondaryText={`= ${talaToString(manadarlaun.laun,1)} kr.`}
+              />
+            </List>
+            </div>
+            }
           </div>
         </div>
         }
@@ -162,6 +201,7 @@ const mapStateToProps = (state)=> ({
     },
     vinnuskylda: state.vinnuskylda,
     kennsluafslattur: state.kennsluafslattur,
+    grunnlaun: state.grunnlaun,
     get vinnumat() {
       const heitin = Object.keys(state.afangar);
       let vinnumat = 0; 
@@ -195,7 +235,17 @@ const mapStateToProps = (state)=> ({
     get yfirvinna() {
       return this.starfshlutfallReiknad < 100 ? 0:this.totalVinnumat-this.vinnuskyldaTotal;
     },
-
+    get yfirvinnulaun() {
+      return this.yfirvinna*1.0385/100*this.grunnlaun;
+    },
+    get manadarlaun() {
+      if (this.starfshlutfallReiknad < this.starfshlutfall)
+        return {laun: this.starfshlutfall/100*this.grunnlaun, texti: `${talaToString(this.starfshlutfall,1)}% x ${talaToString(this.grunnlaun,1)}`}
+      else if (this.starfshlutfallReiknad < 100)
+        return {laun: this.starfshlutfallReiknad/100*this.grunnlaun, texti: `${talaToString(this.starfshlutfallReiknad,1)}% x ${talaToString(this.grunnlaun,1)}`}
+      else
+        return {laun: this.grunnlaun + this.yfirvinnulaun/4, texti: `${talaToString(this.grunnlaun,1)} + ${talaToString(this.yfirvinnulaun,1)}/4`}
+    }
      
 });
 
