@@ -3,7 +3,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
 const starfshlutfall = [];
-for (let i=0; i <= 100; i++) {
+for (let i=30; i <= 100; i++) {
   starfshlutfall.push(i);
 }
 export default class StarfshlutfallView extends Component {
@@ -25,7 +25,7 @@ export default class StarfshlutfallView extends Component {
     return (
       
         <SelectField
-          floatingLabelText="Starfshlutfall (%)"
+          floatingLabelText="Starfshlutfall í samningi (%)"
           floatingLabelStyle={{color: this.props.textalitur}}
           value={this.state.starfshlutfall}
           onChange={this.handleChange}
