@@ -48,7 +48,10 @@ export function addProps(afangi,synidaemi) {
 	afangi.skerding = afangi.hopar.length==1?0:(afangi.samtalsAnNemenda + vinnaVegnaNemenda(afangi.medalfjoldi,afangi))*(afangi.skerdingarprosenta)/100;
     afangi.hopar = afangi.hopar.map((hopur)=>{
     	return {fjoldi: hopur.fjoldi,
-    			vinnumat: afangi.samtalsAnNemenda-afangi.skerding + vinnaVegnaNemenda(hopur.fjoldi,afangi)}
+    			vinnumat: afangi.samtalsAnNemenda-afangi.skerding + vinnaVegnaNemenda(hopur.fjoldi,afangi),
+                fjoldiAnAlags: afangi.lagmark-hopur.fjoldi > 0 ? afangi.lagmark:(afangi.hamark_n-hopur.fjoldi > 0?hopur.fjoldi:afangi.hamark_n),
+                fjoldi20Alag: afangi.hamark_n===afangi.hamark_e ? 0:Math.min(2,Math.max(0,hopur.fjoldi-afangi.hamark_n)),
+                fjoldi100Alag: hopur.fjoldi-afangi.hamark_e > 0?hopur.fjoldi-afangi.hamark_e:0}
    	});
     	
     afangi.vinnumat = afangi.hopar.reduce((summa,hopur)=> summa + hopur.vinnumat,0);

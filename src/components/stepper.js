@@ -9,6 +9,8 @@ import FlatButton from 'material-ui/FlatButton';
 import AboutTeacherView from './aboutTeacherView.js';
 import CoursesFormView from './coursesFormView.js';
 import Nidurstodur from './nidurstodur.js';
+import NidurstodurSundurlidun from './nidurstodurSundurlidun.js';
+
 class StepperProgress extends React.Component {
 
   state = {
@@ -63,6 +65,7 @@ class StepperProgress extends React.Component {
         </Stepper>
         <div style={contentStyle}>
           {finished ? (
+            <div>
             <p>
               <a
                 href="#"
@@ -72,8 +75,10 @@ class StepperProgress extends React.Component {
                 }}
               >
                 Byrja aftur
-              </a> Niðurstöður koma hér fyrir neðan
+              </a>
             </p>
+            <NidurstodurSundurlidun/>
+            </div>
           ) : (
             <div>
               {this.getStepContent(stepIndex)}
