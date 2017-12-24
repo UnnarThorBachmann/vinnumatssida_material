@@ -97,7 +97,7 @@ class AboutTeacherView extends Component {
                       flexWrap: 'wrap',
                       justifyContent: 'flex-start'}}
         >
-          <div style={{...styles.main,...this.props.mobilestyles}}>
+          <div style={{...styles.main,...this.props.mobilestyle}}>
             <h3>Reikna vinnumat</h3>
               <p>Hægt að nota til að reikna vinnumat stakra áfanga. Veljið fullt vinnumat eða launaútreikninga eftir þörfum</p>
               <br/>
@@ -118,7 +118,7 @@ class AboutTeacherView extends Component {
 
           </div>
           {fulltStarf &&
-          <div style={{...styles.main,...this.props.mobilestyles}}>
+          <div style={{...styles.main,...this.props.mobilestyle}}>
             <AgeView textalitur={grey900} 
                       focuslitur={deepOrangeA400} 
                       aldur={aldur} 
@@ -141,7 +141,7 @@ class AboutTeacherView extends Component {
           </div>
           }
           {(laun && fulltStarf) &&
-          <div style={{...styles.main,...this.props.mobilestyles}}>
+          <div style={{...styles.main,...this.props.mobilestyle}}>
                 <div> 
                 <LaunaflokkurView 
                   textalitur={grey900} 

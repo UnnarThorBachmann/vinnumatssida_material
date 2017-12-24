@@ -41,15 +41,31 @@ class StepperProgress extends React.Component {
           <div>
             <Media query="(max-width: 800px)">
               {matches =>
-                matches ? <AboutTeacherView mobilestyles={{width: '100%'}}/>:<AboutTeacherView mobilestyles={{width: '25%'}}/>
+                matches ? <AboutTeacherView mobilestyle={{width: '100%'}}/>:<AboutTeacherView mobilestyle={{width: '25%'}}/>
               }
             </Media>
           </div>
         )
       case 1:
-        return <CoursesFormView/>;
+        return (
+          <div>
+            <Media query="(max-width: 800px)">
+              {matches =>
+                matches ? <CoursesFormView mobilestyle={{width: '100%'}}/>:<CoursesFormView mobilestyle={{width: '25%'}}/>
+              }
+            </Media>
+          </div>
+        )
       case 2:
-        return <Nidurstodur/>;
+        return (
+          <div>
+            <Media query="(max-width: 800px)">
+              {matches =>
+                matches ? <Nidurstodur mobilestyle={{width: '100%'}}/>:<Nidurstodur mobilestyle={{width: '25%'}}/>
+              }
+            </Media>
+          </div>
+        )
       default:
         return 'Kemst ekki';
     }

@@ -147,7 +147,7 @@ class CourseFormView extends Component {
                       flexWrap: 'wrap',
                       justifyContent: 'flex-start'}}
         >
-          <div style={styles.thumb}>
+          <div style={{...styles.thumb, ...this.props.mobilestyle}}>
               <h4>Grunnupplýsingar</h4>
               <HeitiView textalitur={grey900} focuslitur={deepOrangeA400} heiti={this.state.heiti} changeHeiti={this.changeHeiti}/>
               <br/>
@@ -155,7 +155,7 @@ class CourseFormView extends Component {
               <br/>
               <SynidaeminView textalitur={grey900} focuslitur={deepOrangeA400} synidaemi={this.state.synidaemi} changeSynidaemi={this.changeSynidaemi}/>
           </div>
-          <div style={styles.thumb}>
+          <div style={{...styles.thumb, ...this.props.mobilestyle}}>
               <h4>Staðin kennsla</h4>
               <VikurView textalitur={grey900} focuslitur={deepOrangeA400} kennsluvikur={this.state.kennsluvikur} changeKennsluvikur={this.changeKennsluvikur}/>
               <br/>
@@ -163,7 +163,7 @@ class CourseFormView extends Component {
               <br/>
               <LengdView textalitur={grey900} focuslitur={deepOrangeA400} lengd={this.state.lengdKst} changeLengd={this.changeLengd}/>
           </div>
-          <div style={styles.thumb}>
+          <div style={{...styles.thumb, ...this.props.mobilestyle}}>
               <h4>Fjöldatölur 
                   <Badge
                     badgeContent={this.state.hopar.length}

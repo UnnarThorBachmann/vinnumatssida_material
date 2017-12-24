@@ -48,7 +48,6 @@ class NidurstodurSundurlidun extends Component {
   render() {
     const {afangar} = this.props;
     const heitin = Object.keys(afangar);
-    console.log(heitin);
     
     for (let heiti of heitin) {
       afangar[heiti].hopar = afangar[heiti].hopar.map((hopur,index)=> {

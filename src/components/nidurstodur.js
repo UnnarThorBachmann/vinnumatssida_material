@@ -61,7 +61,7 @@ class Nidurstodur extends Component {
                       justifyContent: 'flex-start'}}
         >
         { fulltStarf  &&
-        <div style={styles.main}>
+        <div style={{...styles.main,...this.props.mobilestyle}}>
           <h4 style={{marginBottom: '5%',marginTop: '3%'}}>Um kennarann</h4>   
             <List style={{padding: '0%',margin:'0%'}}>
               <ListItem innerDivStyle={{padding: '0%',margin:'0%'}} primaryText={`Aldur:`} secondaryText={ `${aldur}`}></ListItem>
@@ -81,7 +81,7 @@ class Nidurstodur extends Component {
         </div>
         }
         {
-        <div style={styles.main}>
+        <div style={{...styles.main,...this.props.mobilestyle}}>
           <h4 style={{marginBottom: '5%',marginTop: '3%'}}>Vinnumat</h4>
             <List style={{padding: '0%',margin:'0%'}}> 
             <ListItem 
@@ -129,7 +129,7 @@ class Nidurstodur extends Component {
         </div>
         }
         { fulltStarf  &&
-        <div style={styles.main}>
+        <div style={{...styles.main,...this.props.mobilestyle}}>
           <div>
           <h4 style={{marginBottom: '5%',marginTop: '3%'}}>Vinnuskylda</h4>   
             <List style={{padding: '0%',margin:'0%'}}>
