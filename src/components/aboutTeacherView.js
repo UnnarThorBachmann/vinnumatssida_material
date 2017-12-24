@@ -38,7 +38,6 @@ class AboutTeacherView extends Component {
   constructor(props) {
     super(props);
 
-    
     this.changeOnnurStorf = this.changeOnnurStorf.bind(this);
     this.changeLaunaflokkur = this.changeLaunaflokkur.bind(this);
     this.changeThrep = this.changeThrep.bind(this);
@@ -106,6 +105,7 @@ class AboutTeacherView extends Component {
                 trackSwitchedStyle={{backgroundColor: deepOrangeA400}}
                 thumbSwitchedStyle={{backgroundColor: deepOrangeA400}}
                 onToggle={this.changeFulltStarf}
+                defaultToggled={this.props.fulltStarf}
               />
               <br/>
               <Toggle
@@ -114,6 +114,7 @@ class AboutTeacherView extends Component {
                 thumbSwitchedStyle={{backgroundColor: deepOrangeA400}}
                 onToggle={this.changeLaun}
                 disabled={!fulltStarf}
+                defaultToggled={this.props.laun}
               />
 
           </div>
