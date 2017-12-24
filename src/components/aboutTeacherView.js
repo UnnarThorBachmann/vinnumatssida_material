@@ -51,7 +51,11 @@ class AboutTeacherView extends Component {
 
   changeOnnurStorf(timar) {
     const {dispatch} = this.props;
+    const valid = (isNaN(timar.replace(',','.')) || timar.trim() === '')? true:false
+    
+    this.props.invalid(!valid);
     dispatch(setOnnurStorf(timar));
+
   }
 
   changeAldur(aldur) {

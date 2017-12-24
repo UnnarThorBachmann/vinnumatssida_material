@@ -83,14 +83,22 @@ class CourseFormView extends Component {
   };
 
   changeEiningar(einingar) {
-    this.setState({einingar: einingar,
-      einingarValidated: (isNaN(einingar.replace(',','.')) || einingar.trim() === '')? true:false
-    })
+    if (this.state.synidaemi === 'Hægferð')
+      this.setState({einingar: '2',
+        einingarValidated: (isNaN(einingar.replace(',','.')) || einingar.trim() === '')? true:false
+      })
+    else
+      this.setState({einingar: einingar,
+        einingarValidated: (isNaN(einingar.replace(',','.')) || einingar.trim() === '')? true:false
+      })
     
   };
 
   changeSynidaemi(synidaemi) {
-    this.setState({synidaemi: synidaemi})
+    if (synidaemi === 'Hægferð')
+      this.setState({synidaemi: synidaemi,einingar: '2'})
+    else
+      this.setState({synidaemi: synidaemi})
   }
 
   changeKennsluvikur(kennsluvikur) {

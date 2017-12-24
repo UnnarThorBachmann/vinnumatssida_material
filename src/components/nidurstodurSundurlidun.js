@@ -56,7 +56,7 @@ class NidurstodurSundurlidun extends Component {
         const vvnaa = hopur.fjoldiAnAlags*a.vinna_per_nemanda/60;
         const vvn20a = hopur.fjoldi20Alag*1.2*a.vinna_per_nemanda/60;
         const vvn100a = hopur.fjoldi100Alag*2*a.vinna_per_nemanda/60;
-        const f = parseFloat(a.einingar)/3;
+        const f = (afangar[heiti].synidaemi ==='Hægferð')?1:parseFloat(a.einingar)/3;
         return {
           ...afangar[heiti],
           ...hopur,

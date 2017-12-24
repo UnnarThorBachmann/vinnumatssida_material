@@ -5,6 +5,7 @@ import {
   StepLabel,
 } from 'material-ui/Stepper';
 import Media from 'react-media';
+
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import AboutTeacherView from './aboutTeacherView.js';
@@ -17,7 +18,9 @@ class StepperProgress extends React.Component {
   state = {
     finished: false,
     stepIndex: 0,
+    afram: true
   };
+
 
   handleNext = () => {
     const {stepIndex} = this.state;
@@ -33,7 +36,9 @@ class StepperProgress extends React.Component {
       this.setState({stepIndex: stepIndex - 1});
     }
   };
-
+  handleInvalid = (afram)=> {
+    this.setState({afram: afram})
+  }
   getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0:
@@ -41,7 +46,7 @@ class StepperProgress extends React.Component {
           <div>
             <Media query="(max-width: 800px)">
               {matches =>
-                matches ? <AboutTeacherView mobilestyle={{width: '100%'}}/>:<AboutTeacherView mobilestyle={{width: '25%'}}/>
+                matches ? <AboutTeacherView invalid={this.handleInvalid} mobilestyle={{width: '100%'}}/>:<AboutTeacherView invalid={this.handleInvalid} mobilestyle={{width: '25%'}}/>
               }
             </Media>
           </div>
@@ -119,7 +124,7 @@ class StepperProgress extends React.Component {
                   backgroundColor={this.props.iconColor}
                   labelColor='#FFFFFF'
                   onClick={this.handleNext}
-                  disabled={false}
+                  disabled={!this.state.afram}
                 />
               </div>
             </div>
@@ -129,5 +134,6 @@ class StepperProgress extends React.Component {
     );
   }
 }
+
 
 export default StepperProgress;

@@ -39,12 +39,13 @@ export function addProps(afangi,synidaemi) {
 			einingar: parseFloat(afangi.einingar.replace(',','.')),
 			heiti: afangi.heiti
 	};
-	
+	const f = (synidaemi.heiti === 'Hægferð')?1:parseFloat(afangi.einingar)/3;
+
 	afangi.medalfjoldi = afangi.hopar.reduce((summa,hopur)=>summa + hopur.fjoldi,0)/afangi.hopar.length;
 	afangi.skerdingarprosenta = 100*skerdingarprosenta(afangi.hopar.length);
 	afangi.stadinKennsla = afangi.kennsluvikur*afangi.kennslustundir*afangi.lengdKst/60;
 	afangi.undirbuningurKennslu = afangi.stadinKennsla/40*afangi.undirb_kennslu;
-	afangi.fastirLidir = (afangi.timar_namsAetlun + afangi.verkefnisgerd+ afangi.onnur_vinna)*afangi.einingar/3;
+	afangi.fastirLidir = (afangi.timar_namsAetlun + afangi.verkefnisgerd+ afangi.onnur_vinna)*f;
 	afangi.samtalsAnNemenda = afangi.stadinKennsla+afangi.undirbuningurKennslu + afangi.fastirLidir
 	afangi.skerding = afangi.hopar.length==1?0:(afangi.samtalsAnNemenda + vinnaVegnaNemenda(afangi.medalfjoldi,afangi))*(afangi.skerdingarprosenta)/100;
     afangi.hopar = afangi.hopar.map((hopur)=>{
@@ -65,7 +66,9 @@ export const vinnaVegnaNemenda = (nemfjoldi,self)=> {
 		let lagmark = self.lagmark;
 		let hamark_e = self.hamark_e;
 		let hamark_n = self.hamark_n;
-		let vinna_per_nemanda = parseFloat(self.einingar)*self.vinna_per_nemanda/3;
+        const f = (self.synidaemi === 'Hægferð')?1:parseFloat(self.einingar)/3;
+
+		let vinna_per_nemanda = self.vinna_per_nemanda*f;
 			
 		let vinnumat = 0;
 		
@@ -124,7 +127,8 @@ export const initialState = {
       launaflokkur: 1,
       threp: 0,
       grunnlaun: launatafla[1][0],
-      afangar: {}
+      afangar: {},
+      afram: true
 };
 
 export const Synidaemi = {
