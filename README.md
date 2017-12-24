@@ -26,4 +26,6 @@ Node packages installed:
 5. react-dom: npm install react react-dom --save
 6. redux: npm install --save redux
 7. react-reducer: npm install --save react-redux
+8. react-media-query: npm install react-media-query --save
+9. react-media: npm install react-media --save
 

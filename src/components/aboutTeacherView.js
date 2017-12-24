@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Media from 'react-media';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import AgeView from './ageView.js';
@@ -17,6 +18,7 @@ import {connect} from 'react-redux';
 
 const styles = {
   main: {
+    className: 'gluggar',
     marginLeft: '1%',
     marginRight: '1%',
     marginTop: '1%',
@@ -27,8 +29,8 @@ const styles = {
     paddingBottom: '1%',
     borderWidth: '1px',
     borderRadius: '10px',
-    width: '25%'
-  },
+    width: '25%',
+  }
 };
 
 
@@ -89,12 +91,13 @@ class AboutTeacherView extends Component {
     const {launaflokkur, threp, timar, aldur, starfshlutfall,fulltStarf,laun} = this.props;
     
     return (
-      <div> 
+      <div>
+        
         <div style={{display: 'flex',
                       flexWrap: 'wrap',
                       justifyContent: 'flex-start'}}
         >
-          <div style={styles.main}>
+          <div style={{...styles.main,...this.props.mobilestyles}}>
             <h3>Reikna vinnumat</h3>
               <p>Hægt að nota til að reikna vinnumat stakra áfanga. Veljið fullt vinnumat eða launaútreikninga eftir þörfum</p>
               <br/>
@@ -115,7 +118,7 @@ class AboutTeacherView extends Component {
 
           </div>
           {fulltStarf &&
-          <div style={styles.main}>
+          <div style={{...styles.main,...this.props.mobilestyles}}>
             <AgeView textalitur={grey900} 
                       focuslitur={deepOrangeA400} 
                       aldur={aldur} 
@@ -138,7 +141,7 @@ class AboutTeacherView extends Component {
           </div>
           }
           {(laun && fulltStarf) &&
-          <div style={styles.main}>
+          <div style={{...styles.main,...this.props.mobilestyles}}>
                 <div> 
                 <LaunaflokkurView 
                   textalitur={grey900} 

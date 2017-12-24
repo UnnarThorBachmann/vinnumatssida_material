@@ -4,6 +4,7 @@ import {
   Stepper,
   StepLabel,
 } from 'material-ui/Stepper';
+import Media from 'react-media';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import AboutTeacherView from './aboutTeacherView.js';
@@ -36,7 +37,15 @@ class StepperProgress extends React.Component {
   getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0:
-        return <AboutTeacherView/>;
+        return (
+          <div>
+            <Media query="(max-width: 800px)">
+              {matches =>
+                matches ? <AboutTeacherView mobilestyles={{width: '100%'}}/>:<AboutTeacherView mobilestyles={{width: '25%'}}/>
+              }
+            </Media>
+          </div>
+        )
       case 1:
         return <CoursesFormView/>;
       case 2:
@@ -54,10 +63,10 @@ class StepperProgress extends React.Component {
       <div style={{width: '100%', maxWidth: 1000, margin: 'auto'}}>
         <Stepper activeStep={stepIndex}>
           <Step>
-            <StepLabel active={true}>Upplýsingar um kennara</StepLabel>
+            <StepLabel active={true}>Um kennara</StepLabel>
           </Step>
           <Step>
-            <StepLabel>Upplýsingar um áfanga</StepLabel>
+            <StepLabel>Um áfanga</StepLabel>
           </Step>
           <Step>
             <StepLabel>Niðurstöður</StepLabel>
