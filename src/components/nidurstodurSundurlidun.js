@@ -26,6 +26,14 @@ const styles = {
     borderWidth: '1px',
     borderRadius: '10px',
     width: '90%'
+  },
+  stikar: {
+    className: 'stikar',
+    width:'90%',
+    paddingTop: '0%',
+    paddingBottom: '0%',
+    marginTop:'1%',
+    marginBottom:'1%'
   }
 };
 
@@ -40,6 +48,30 @@ class NidurstodurSundurlidun extends Component {
   render() {
     const {afangar} = this.props;
     const heitin = Object.keys(afangar);
+    console.log(heitin);
+    
+    for (let heiti of heitin) {
+      afangar[heiti].hopar = afangar[heiti].hopar.map((hopur,index)=> {
+        const a = afangar[heiti];
+        const vvn = hopur.vinnumat-a.stadinKennsla-a.fastirLidir + a.skerding-a.undirbuningurKennslu;
+        const vvnaa = hopur.fjoldiAnAlags*a.vinna_per_nemanda/60;
+        const vvn20a = hopur.fjoldi20Alag*1.2*a.vinna_per_nemanda/60;
+        const vvn100a = hopur.fjoldi100Alag*2*a.vinna_per_nemanda/60;
+        const f = parseFloat(a.einingar)/3;
+        return {
+          ...afangar[heiti],
+          ...hopur,
+          heiti: `${afangar[heiti].heiti}, hópur ${index+1}`,
+          vinnumatTotal: hopur.vinnumat-a.stadinKennsla-a.fastirLidir+a.skerding-a.undirbuningurKennslu,
+          stadinKennslaStrengur: `${a.kennsluvikur} vikur x ${a.kennslustundir} kennslustundir x ${a.lengdKst} mín = ${a.stadinKennsla} klst.`,
+          undirbuningurKennsluStrengur: `${a.kennsluvikur} vikur x ${a.kennslustundir} kennslustundir x ${a.lengdKst} mín/40 mín x ${a.undirb_kennslu} mín = ${a.undirbuningurKennslu} klst.`,
+          undirbuningurTolurStrengur: `= ${talaToString(a.timar_namsAetlun*f,1)} klst. + ${talaToString(a.verkefnisgerd*f,1)} klst. + ${talaToString(a.onnur_vinna*f,1)} klst. = ${talaToString(a.fastirLidir,1)} klst.`,
+          vinnaVegnaNemendaStrengur: `${hopur.fjoldiAnAlags} x ${talaToString(a.vinna_per_nemanda/60*f,2)} + ${hopur.fjoldi20Alag} x ${talaToString(a.vinna_per_nemanda/60*f*1.2,1)} + ${hopur.fjoldi100Alag} x ${talaToString(a.vinna_per_nemanda/60*f*2,1)} = ${talaToString(vvnaa,1)} + ${talaToString(vvn20a,1)} + ${talaToString(vvn100a,1)} = ${talaToString(vvn,1)} klst.`,
+          skerdingarStrengur: `${talaToString(a.skerdingarprosenta,1)} % af vinnumati meðalhóps.`,
+          f: f    
+        }
+      });
+    }
     
     return (
       <div> 
@@ -52,14 +84,162 @@ class NidurstodurSundurlidun extends Component {
             {
               heitin.map((heiti)=>
                     afangar[heiti].hopar.map((hopur,index)=> 
-                    <div style={styles.main}>
-                    <List key={heiti+hopur.toString()}style={{padding: '0%',margin:'0%'}}>
+                    <div key={hopur.heiti} style={styles.main}>
+                    <List style={{padding: '0%',margin:'0%'}}>
                       <ListItem 
-                        primaryText={`Heiti: ${afangar[heiti].heiti}-${index+1}`}>
-                      </ListItem>
+                        primaryText={`Heiti: ${hopur.heiti}`}
+                        innerDivStyle={styles.stikar}
+                      />
+                      
                       <ListItem 
-                        primaryText={`Fjöldi: ${hopur.fjoldi}`}>
-                      </ListItem>    
+                        innerDivStyle={styles.stikar}
+                        primaryText={
+                          <div style={{display: 'flex',
+                            flexWrap: 'wrap',
+                            justifyContent: 'space-between'}}
+                          >    
+                            <div>{`Sýnidæmi: `}</div>
+                            <div>{`${hopur.synidaemi}`}</div>
+                          </div>
+                        } 
+                      />
+                      <ListItem
+                        innerDivStyle={styles.stikar}
+                        primaryText={
+                          <div style={{display: 'flex',
+                            flexWrap: 'wrap',
+                            justifyContent: 'space-between'}}
+                          >    
+                            <div>{`Fjöldi: `}</div>
+                            <div>{`${talaToString(hopur.fjoldi,0)} nem.`}</div>
+                          </div>
+                        } 
+                      />
+                      
+                      <ListItem
+                        innerDivStyle={styles.stikar}
+                        primaryText={
+                          <div style={{display: 'flex',
+                            flexWrap: 'wrap',
+                            justifyContent: 'space-between'}}
+                          >    
+                            <div>{`Einingar: `}</div>
+                            <div>{`${talaToString(hopur.einingar,0)} einingar (gamlar)`}</div>
+                          </div>
+                        } 
+                      />
+                       <ListItem
+                        innerDivStyle={styles.stikar}
+                        primaryText={
+                          <div style={{display: 'flex',
+                            flexWrap: 'wrap',
+                            justifyContent: 'space-between'}}
+                          >    
+                            <div>{`Námsáætlun/skipulag/vinnumat:`}</div>
+                            <div>{`${talaToString(hopur.timar_namsAetlun*hopur.f,1)} klst.`}</div>
+                          </div>
+                        }
+                        secondaryText={
+                          <div>
+                            <div>
+                              { hopur.f !== 1 &&
+                              <div>
+                               {`${talaToString(hopur.timar_namsAetlun,1)} klst. x ${talaToString(hopur.f,2)} = ${talaToString(hopur.timar_namsAetlun*hopur.f,1)} klst.`}
+                              </div>
+                              }
+                              
+                            </div>
+                          </div>
+                        }   
+                      />
+                      <ListItem
+                        innerDivStyle={styles.stikar}
+                        primaryText={
+                          <div style={{display: 'flex',
+                            flexWrap: 'wrap',
+                            justifyContent: 'space-between'}}
+                          >    
+                            <div>{`Verkefnis og prófagerð á kennslutíma:`}</div>
+                            <div>{`${talaToString(hopur.verkefnisgerd*hopur.f,1)} klst.`}</div>
+                          </div>
+                        }
+                        secondaryText={
+                          <div>
+                            <div>
+                              { hopur.f !== 1 &&
+                              <div>
+                               {`${talaToString(hopur.verkefnisgerd,1)} klst. x ${talaToString(hopur.f,2)} = ${talaToString(hopur.verkefnisgerd*hopur.f,1)} klst.`}
+                              </div>
+                              }
+                              
+                            </div>
+                          </div>
+                        }    
+                      />
+                      <ListItem
+                        innerDivStyle={styles.stikar}
+                        primaryText={
+                          <div style={{display: 'flex',
+                            flexWrap: 'wrap',
+                            justifyContent: 'space-between'}}
+                          >    
+                            <div>{`Önnur vinna óháð nemendafjölda:`}</div>
+                            <div>{`${talaToString(hopur.onnur_vinna*hopur.f,1)} klst.`}</div>
+                          </div>
+                        }
+                        secondaryText={
+                          <div>
+                            <div>
+                              { hopur.f !== 1 &&
+                              <div>
+                               {`${talaToString(hopur.onnur_vinna,1)} klst. x ${talaToString(hopur.f,2)} = ${talaToString(hopur.onnur_vinna*hopur.f,1)} klst.`}
+                              </div>
+                              }
+                              
+                            </div>
+                          </div>
+                        }    
+                      />
+                      <ListItem
+                        innerDivStyle={styles.stikar}
+                        primaryText={
+                          <div style={{display: 'flex',
+                            flexWrap: 'wrap',
+                            justifyContent: 'space-between'}}
+                          >    
+                            <div>{`Undirbúningur að jafnaði fyrir hverja kennslustund (m.v. 40 mín):`}</div>
+                            <div>{`${talaToString(hopur.undirb_kennslu,0)} min.`}</div>
+                          </div>
+                        } 
+                      />
+                      <ListItem
+                        innerDivStyle={styles.stikar}
+                        primaryText={
+                          <div style={{display: 'flex',
+                            flexWrap: 'wrap',
+                            justifyContent: 'space-between'}}
+                          >    
+                            <div>{`Öll yfirferð og frágangur námsmats á hvern nemanda:`}</div>
+                            <div>{`${talaToString(hopur.vinna_per_nemanda/60*hopur.f,2)} klst.`}</div>
+                          </div>
+                        }
+                        secondaryTextLines={hopur.f===1?1:2} 
+                        secondaryText={
+                          <div>
+                            <div>
+                              { hopur.f !== 1 &&
+                              <div>
+                               {`${talaToString(hopur.vinna_per_nemanda/60,2)} x ${talaToString(hopur.f,2)} = ${talaToString(hopur.vinna_per_nemanda/60*hopur.f,2)} klst.`}
+                              </div>
+                              }
+                              <div>
+                                {`Með 20% álagi ${talaToString(hopur.vinna_per_nemanda/60*hopur.f*1.2,1)} klst. og 100% álagi ${talaToString(hopur.vinna_per_nemanda/60*hopur.f*2,1)} klst.`}
+                              </div>
+                            </div>
+                          </div>
+                        }  
+                      />
+                              
                       <ListItem
                         leftIcon={<Forward color={'white'}/>}
                         primaryText={
@@ -68,11 +248,10 @@ class NidurstodurSundurlidun extends Component {
                             justifyContent: 'space-between'}}
                           >    
                             <div>{`Staðin kennsla: `}</div>
-                            <div>{`${talaToString(afangar[heiti].stadinKennsla,1)} klst.`}</div>
+                            <div>{`${talaToString(hopur.stadinKennsla,1)} klst.`}</div>
                           </div>
                         } 
-                        secondaryText={`${afangar[heiti].kennsluvikur} vikur x ${afangar[heiti].kennslustundir} kennslustundir x ${afangar[heiti].lengdKst} mín/60 mín= ${afangar[heiti].stadinKennsla} klst.`}>
-                      </ListItem>
+                        secondaryText={hopur.stadinKennslaStrengur}/>
                       <ListItem
                         leftIcon={<Add/>} 
                         primaryText={
@@ -81,11 +260,10 @@ class NidurstodurSundurlidun extends Component {
                             justifyContent: 'space-between'}}
                           >    
                             <div>{`Undirbúningur: `}</div>
-                            <div>{`${talaToString(afangar[heiti].undirbuningurKennslu,1)} klst.`}</div>
+                            <div>{`${hopur.undirbuningurKennslu} klst.`}</div>
                           </div>
                         } 
-                        secondaryText={`${afangar[heiti].kennsluvikur} vikur x ${afangar[heiti].kennslustundir} kennslustundir x ${afangar[heiti].lengdKst} mín/${afangar[heiti].undirb_kennslu} mín klst.= ${afangar[heiti].undirbuningurKennslu} klst.`}>
-                      </ListItem>   
+                        secondaryText={hopur.undirbuningurKennsluStrengur}/>  
                       <ListItem
                         leftIcon={<Add/>}  
                         primaryText={
@@ -94,7 +272,7 @@ class NidurstodurSundurlidun extends Component {
                             justifyContent: 'space-between'}}
                           >   
                             <div>{`Fastir liðir: `}</div>
-                            <div>{`${talaToString(afangar[heiti].fastirLidir,1)} klst.`}</div>
+                            <div>{`${talaToString(hopur.fastirLidir,1)} klst.`}</div>
                           </div>
                         } 
                         innerDivStyle={{paddingTop: '0%',paddingBottom: '0%',marginTop:'0%',marginBottom:'0%'}}
@@ -103,11 +281,11 @@ class NidurstodurSundurlidun extends Component {
                           <div>
                             <div>
                               <div>
-                              <span>{`Fastir liðir = Gerð námsáætlunnar + Verkefnisgerð + Önnur vinna`}</span>
+                              <span>{`Fastir liðir = Skipulag + Verkefnisgerð + Önnur vinna`}</span>
                               </div>
                               <div>
                               <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                              <span>{`= ${talaToString(afangar[heiti].timar_namsAetlun,1)} klst. + ${talaToString(afangar[heiti].verkefnisgerd,1)} klst. + ${talaToString(afangar[heiti].onnur_vinna,1)} klst. = ${talaToString(afangar[heiti].fastirLidir,1)} klst.`}</span>
+                              <span>{hopur.undirbuningurTolurStrengur}</span>
                               </div>
                             </div>
                           </div>
@@ -122,13 +300,12 @@ class NidurstodurSundurlidun extends Component {
                             justifyContent: 'space-between'}}
                           >    
                             <div>{`Vegna nemenda: `}</div>
-                            <div>{`${talaToString(hopur.vinnumat-afangar[heiti].stadinKennsla-afangar[heiti].fastirLidir+afangar[heiti].skerding-afangar[heiti].undirbuningurKennslu,1)} klst.`}</div>
+                            <div>{`${talaToString(hopur.vinnumatTotal,1)} klst.`}</div>
                           </div>
                         } 
                         innerDivStyle={{paddingTop: '0%',paddingBottom: '0%',marginTop:'0%',marginBottom:'0%'}} 
                         secondaryTextLines={2}
-                        secondaryText={`${hopur.fjoldiAnAlags} x ${talaToString(afangar[heiti].vinna_per_nemanda/60,2)} + ${hopur.fjoldi20Alag} x ${talaToString(afangar[heiti].kostn_per_nem_yn,1)} + ${hopur.fjoldi100Alag} x ${talaToString(afangar[heiti].kostn_per_nem_ye,1)} = ${talaToString(hopur.fjoldiAnAlags*afangar[heiti].vinna_per_nemanda/60,1)} + ${talaToString(hopur.fjoldi20Alag*1.2*afangar[heiti].vinna_per_nemanda/60,1)} + ${talaToString(hopur.fjoldi100Alag*2*afangar[heiti].vinna_per_nemanda/60,1)} = ${talaToString(hopur.vinnumat-afangar[heiti].stadinKennsla-afangar[heiti].fastirLidir + afangar[heiti].skerding-afangar[heiti].undirbuningurKennslu,1)} klst.`}
-                      />
+                        secondaryText={hopur.vinnaVegnaNemendaStrengur}/>
                       <ListItem 
                         primaryText={
                           <div style={{display: 'flex',
@@ -145,7 +322,7 @@ class NidurstodurSundurlidun extends Component {
                         secondaryText={
                           <div>
                             <div>
-                              <div>{`Sem prósenta af  vinnumati meðaltalshóps: ${talaToString(afangar[heiti].skerdingarprosenta,1)} %`}</div>
+                              <div>{hopur.skerdingarStrengur}</div>
                             </div>
                           </div>
                         }

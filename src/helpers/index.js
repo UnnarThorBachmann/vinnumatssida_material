@@ -24,7 +24,8 @@ export function kennsluafslattur(aldur) {
 }
 
 export function talaToString(tala,digit) {
-	return tala.toFixed(digit).toString().replace('.',',');
+    
+	return tala?tala.toFixed(digit).toString().replace('.',','):0;
 }
 
 export const skerdingarprosenta = (n)=> {
@@ -54,7 +55,7 @@ export function addProps(afangi,synidaemi) {
                 fjoldi100Alag: hopur.fjoldi-afangi.hamark_e > 0?hopur.fjoldi-afangi.hamark_e:0}
    	});
     	
-    afangi.vinnumat = afangi.hopar.reduce((summa,hopur)=> summa + hopur.vinnumat,0);
+    afangi.vinnumatTotal = afangi.hopar.reduce((summa,hopur)=> summa + hopur.vinnumat,0);
    
 	return afangi;
 }
