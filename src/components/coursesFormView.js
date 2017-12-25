@@ -18,6 +18,7 @@ import ContentRemove from 'material-ui/svg-icons/content/remove';
 
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import IconButton from 'material-ui/IconButton';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import Badge from 'material-ui/Badge';
 import {connect} from 'react-redux';
@@ -258,7 +259,7 @@ class CourseFormView extends Component {
                       flexWrap: 'wrap',
                       justifyContent: 'flex-start'}}>
           {this.state.heitin.length > 0 &&
-            <div>
+            <div style={{paddingLeft: '30px'}}>
             <SelectField
             floatingLabelText="Vistaðir áfangar"
             value={this.state.selectedHeiti}
@@ -328,35 +329,34 @@ class CourseFormView extends Component {
               }
               <br/>
               <div style={{width: '100%'}}>
-              <IconButton mini={true} 
+              <IconButton  
                                     style={{marginRight: 20, float: 'right'}} 
                                     iconStyle={{color: deepOrangeA400}}
                                     onClick={this.addHopur}
               >
                 <ContentAdd />
               </IconButton>
-              <IconButton mini={true} 
-                                    style={{marginRight: 0, float: 'right'}}
-                                    iconStyle={{color: deepOrangeA400}} 
-                                    backgroundColor={deepOrangeA400}
-                                    onClick={this.removeHopur}
+              <IconButton 
+                style={{marginRight: 0, float: 'right'}}
+                iconStyle={{color: deepOrangeA400}} 
+                onClick={this.removeHopur}
               >
                 <ContentRemove/>
               </IconButton>
               </div>
           </div>
         </div>
-        <div style={{width: '100%'}}>
-              <FloatingActionButton 
-                style={{marginRight: 20, marginTop: 10, float: 'right'}}
-                mini={this.props.mini} 
+         <div style={{width: '100%'}}>
+              <RaisedButton 
+                style={{marginRight: 10, marginTop: 10, float: 'right', width:'20%',...this.props.mobilestyle}}
+                backgroundColor={deepOrangeA400}
+                labelColor={'white'}
+                label={'Bæta við áfanga'} 
                 disabled={this.state.disabled} 
-                backgroundColor={deepOrangeA400} 
-                onClick={this.addAfangi}>
-                <ContentAdd />
-              </FloatingActionButton>
-        </div>
+                onClick={this.addAfangi}/>
+        </div>   
       </div>
+
 
     );
   }

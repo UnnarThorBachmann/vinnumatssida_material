@@ -60,7 +60,6 @@ class StepperProgress extends React.Component {
 
   save = ()=>{
     storeData(this.props.storeState);
-    this.setState({stepIndex: 0, finished: false});
   }
 
   delete=()=> {
@@ -137,17 +136,9 @@ class StepperProgress extends React.Component {
                 <Endurtaka/>
               </IconButton>
               <IconButton 
-                iconStyle={{color: this.props.iconColor}}
-                onClick={this.save}
-                tooltip={'Vista í vafra'}
-              >
-                <Skapa/>
-              </IconButton>
-              <IconButton 
-                iconStyle={{color: this.props.iconColor}}
+                iconStyle={{color: this.props.iconColor, float: 'right'}}
                 onClick={this.delete}
                 tooltip={'Eyða úr vafra'}
-                
               >
                 <Rusl/>
               </IconButton>
@@ -165,7 +156,7 @@ class StepperProgress extends React.Component {
                   style={{marginRight: 12,marginTop: 10}}
                 />
                 <RaisedButton
-                  label={stepIndex === 2 ? 'Enda' : 'Áfram'}
+                  label={stepIndex === 2 ? 'Enda' : 'Fram'}
                   backgroundColor={this.props.iconColor}
                   labelColor='#FFFFFF'
                   style={{marginTop: 10}}
@@ -175,6 +166,10 @@ class StepperProgress extends React.Component {
               </div>
             </div>
           )}
+          
+          
+          
+          
         </div>
       </div>
     );
