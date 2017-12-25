@@ -17,6 +17,8 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import ContentRemove from 'material-ui/svg-icons/content/remove';
 
 import FloatingActionButton from 'material-ui/FloatingActionButton';
+import IconButton from 'material-ui/IconButton';
+
 import Badge from 'material-ui/Badge';
 import {connect} from 'react-redux';
 import {addAfangi,deleteAfangi} from '../actions'; 
@@ -274,13 +276,15 @@ class CourseFormView extends Component {
           }
           {this.state.selectedHeiti &&
             <div>
-              <FloatingActionButton 
+              <IconButton 
                 style={{marginRight: 50, marginTop: 20, float: 'right'}}
-                mini={true} 
-                backgroundColor={deepOrangeA400} 
-                onClick={this.deleteAfangi}>
+                iconStyle={{color: deepOrangeA400}}
+                onClick={this.deleteAfangi}
+                tooltip={'Eyða völdum áfanga'}
+              >
+                
                 <ContentRemove />
-              </FloatingActionButton>
+              </IconButton>
             </div>
           }  
         </div>
@@ -324,20 +328,21 @@ class CourseFormView extends Component {
               }
               <br/>
               <div style={{width: '100%'}}>
-              <FloatingActionButton mini={true} 
+              <IconButton mini={true} 
                                     style={{marginRight: 20, float: 'right'}} 
-                                    backgroundColor={deepOrangeA400}
+                                    iconStyle={{color: deepOrangeA400}}
                                     onClick={this.addHopur}
               >
                 <ContentAdd />
-              </FloatingActionButton>
-              <FloatingActionButton mini={true} 
-                                    style={{marginRight: 20, float: 'right'}} 
+              </IconButton>
+              <IconButton mini={true} 
+                                    style={{marginRight: 0, float: 'right'}}
+                                    iconStyle={{color: deepOrangeA400}} 
                                     backgroundColor={deepOrangeA400}
                                     onClick={this.removeHopur}
               >
                 <ContentRemove/>
-              </FloatingActionButton>
+              </IconButton>
               </div>
           </div>
         </div>

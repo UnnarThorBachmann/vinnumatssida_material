@@ -132,18 +132,22 @@ class StepperProgress extends React.Component {
                   event.preventDefault();
                   this.setState({stepIndex: 0, finished: false});
                 }}
+                tooltip={'Yfirfara'}
               >
                 <Endurtaka/>
               </IconButton>
               <IconButton 
                 iconStyle={{color: this.props.iconColor}}
                 onClick={this.save}
+                tooltip={'Vista í vafra'}
               >
                 <Skapa/>
               </IconButton>
               <IconButton 
                 iconStyle={{color: this.props.iconColor}}
                 onClick={this.delete}
+                tooltip={'Eyða úr vafra'}
+                
               >
                 <Rusl/>
               </IconButton>
