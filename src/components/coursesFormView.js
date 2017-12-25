@@ -19,7 +19,7 @@ import ContentRemove from 'material-ui/svg-icons/content/remove';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Badge from 'material-ui/Badge';
 import {connect} from 'react-redux';
-import {addAfangi} from '../actions'; 
+import {addAfangi,deleteAfangi} from '../actions'; 
 
 
 import {grey900,deepOrangeA400} from 'material-ui/styles/colors';
@@ -79,10 +79,11 @@ class CourseFormView extends Component {
     this.addHopur = this.addHopur.bind(this);
     this.removeHopur = this.removeHopur.bind(this);
     this.handleChangeSelectedHeiti = this.handleChangeSelectedHeiti.bind(this);
+    this.deleteAfangi = this.deleteAfangi.bind(this);
   }  
   
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+    console.log('her');
     this.setState({afangar: nextProps.afangar,
                    heitin: Object.keys(nextProps.afangar)
     });
@@ -185,15 +186,52 @@ class CourseFormView extends Component {
     const {dispatch} = this.props;
 
     dispatch(addAfangi({...this.state}));
+    this.setState({selectedHeiti: null});
+  }
+  deleteAfangi(event) {
+    const {dispatch} = this.props;
+
+    dispatch(deleteAfangi(this.state.selectedHeiti));
+    this.setState({
+      selectedHeiti: null,
+      heiti: '',
+      einingar: '3',
+      synidaemi: 'Stærðfræði',
+      kennsluvikur: 15,
+      kennslustundir: 6,
+      lengdKst: 40,
+      hopar: [{fjoldi: 25}],
+      heitiNotEmpty: false,
+      einingarIsNumber: true,
+      skiptitimarIsNumber: true,
+      skiptitimar: '0',
+      disabled: true
+    });
+   
   }
   handleChangeSelectedHeiti(event,index,value) {
-
-    if (event.target.value === null)
-      this.setState({selectedHeiti: value})
+  
+    if (value===null) {
+      this.setState({
+        heiti: '',
+        einingar: '3',
+        synidaemi: 'Stærðfræði',
+        kennsluvikur: 15,
+        kennslustundir: 6,
+        lengdKst: 40,
+        hopar: [{fjoldi: 25}],
+        heitiNotEmpty: false,
+        einingarIsNumber: true,
+        skiptitimarIsNumber: true,
+        skiptitimar: '0',
+        disabled: true,
+        selectedHeiti: null}
+      );
+    }
     else {
       const afangi = this.state.afangar[value];
       this.setState({
-        selectedHeiti: null,
+        selectedHeiti: value,
         heiti: afangi.heiti,
         einingar: afangi.einingar.toString(),
         synidaemi: afangi.synidaemi,
@@ -204,7 +242,7 @@ class CourseFormView extends Component {
         heitiNotEmpty: true,
         einingarIsNumber: true,
         skiptitimarIsNumber: true,
-        skiptitimar: '0',
+        skiptitimar: afangi.skiptitimar.toString(),
         disabled: false,
 
       });
@@ -214,24 +252,42 @@ class CourseFormView extends Component {
   render() {
     return (
       <div>
-        {this.state.heitin.length > 0 &&
-
-        <div>
-          <SelectField
+        <div style={{display: 'flex',
+                      flexWrap: 'wrap',
+                      justifyContent: 'flex-start'}}>
+          {this.state.heitin.length > 0 &&
+            <div>
+            <SelectField
             floatingLabelText="Vistaðir áfangar"
             value={this.state.selectedHeiti}
             onChange={this.handleChangeSelectedHeiti}
-          >
-            <MenuItem value={this.state.selectedHeiti} primaryText="" />
-            {
-              this.state.heitin.map((heiti)=> <MenuItem key={heiti} value={heiti} primaryText={heiti} />)
-            }
-          </SelectField>
-        </div>}
+            floatingLabelStyle={{color: grey900}}
+            underlineFocusStyle={{borderColor: deepOrangeA400}}
+            selectedMenuItemStyle={{color: deepOrangeA400}}
+            >
+              <MenuItem value={null} primaryText="" />
+              {
+                this.state.heitin.map((heiti)=> <MenuItem key={heiti} value={heiti} primaryText={heiti} />)
+              }
+            </SelectField>
+            </div>
+          }
+          {this.state.selectedHeiti &&
+            <div>
+              <FloatingActionButton 
+                style={{marginRight: 50, marginTop: 20, float: 'right'}}
+                mini={true} 
+                backgroundColor={deepOrangeA400} 
+                onClick={this.deleteAfangi}>
+                <ContentRemove />
+              </FloatingActionButton>
+            </div>
+          }  
+        </div>
+      
         <div style={{display: 'flex',
                       flexWrap: 'wrap',
-                      justifyContent: 'flex-start'}}
-        >
+                      justifyContent: 'flex-start'}}>
           <div style={{...styles.thumb, ...this.props.mobilestyle}}>
               <h4>Grunnupplýsingar</h4>
               <HeitiView textalitur={grey900} focuslitur={deepOrangeA400} heiti={this.state.heiti} changeHeiti={this.changeHeiti}/>
@@ -296,6 +352,7 @@ class CourseFormView extends Component {
               </FloatingActionButton>
         </div>
       </div>
+
     );
   }
 }

@@ -73,8 +73,13 @@ export default function comments(state={...initialState},action) {
           }
         }
       case DELETE_AFANGI:
+        const nyr_afangar = {...state.afangar};
+        delete nyr_afangar[action.nafn];
         return {
           ...state,
+          afangar: {
+            ...nyr_afangar
+          }
           
         }
       

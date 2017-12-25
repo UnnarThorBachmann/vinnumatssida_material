@@ -50,11 +50,11 @@ export function addProps(afangi,synidaemi) {
 	afangi.undirbuningurKennslu = afangi.stadinKennsla/40*afangi.undirb_kennslu;
 	afangi.fastirLidir = (afangi.timar_namsAetlun + afangi.verkefnisgerd+ afangi.onnur_vinna)*f;
 	afangi.samtalsAnNemenda = afangi.stadinKennsla+afangi.undirbuningurKennslu + afangi.fastirLidir;
-	afangi.skerding = afangi.hopar.length==1?0:(afangi.samtalsAnNemenda + vinnaVegnaNemenda(afangi.medalfjoldi,afangi))*(afangi.skerdingarprosenta)/100;
+	afangi.skerding = afangi.hopar.length==1?0:(afangi.samtalsAnNemenda+ vinnaVegnaNemenda(afangi.medalfjoldi,afangi))*(1+afangi.skiptitimarHlutfall)*(afangi.skerdingarprosenta)/100;
     afangi.hopar = afangi.hopar.map((hopur)=>{
     	return {fjoldi: hopur.fjoldi,
-                vinnumatSkiptitimar:(afangi.samtalsAnNemenda-afangi.skerding + vinnaVegnaNemenda(hopur.fjoldi,afangi))*afangi.skiptitimarHlutfall,
-    			vinnumat: (afangi.samtalsAnNemenda-afangi.skerding + vinnaVegnaNemenda(hopur.fjoldi,afangi))*(1+afangi.skiptitimarHlutfall),
+                vinnumatSkiptitimar:(afangi.samtalsAnNemenda + vinnaVegnaNemenda(hopur.fjoldi,afangi))*afangi.skiptitimarHlutfall,
+    			vinnumat: (afangi.samtalsAnNemenda + vinnaVegnaNemenda(hopur.fjoldi,afangi))*(1+afangi.skiptitimarHlutfall)-afangi.skerding,
                 fjoldiAnAlags: afangi.lagmark-hopur.fjoldi > 0 ? afangi.lagmark:(afangi.hamark_n-hopur.fjoldi > 0?hopur.fjoldi:afangi.hamark_n),
                 fjoldi20Alag: afangi.hamark_n===afangi.hamark_e ? 0:Math.min(2,Math.max(0,hopur.fjoldi-afangi.hamark_n)),
                 fjoldi100Alag: hopur.fjoldi-afangi.hamark_e > 0?hopur.fjoldi-afangi.hamark_e:0}

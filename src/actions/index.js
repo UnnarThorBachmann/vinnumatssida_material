@@ -68,7 +68,7 @@ export function addAfangi(afangi) {
 
 export function deleteAfangi(nafn) {
   return {
-      type: SET_LAUNAFLOKKUR,
+      type: DELETE_AFANGI,
       nafn: nafn
     }
 }

@@ -52,13 +52,12 @@ class NidurstodurSundurlidun extends Component {
     for (let heiti of heitin) {
       afangar[heiti].hopar = afangar[heiti].hopar.map((hopur,index)=> {
         const a = afangar[heiti];
-        console.log(a);
         const vvn = hopur.vinnumat-a.stadinKennsla-a.fastirLidir + a.skerding-a.undirbuningurKennslu-hopur.vinnumatSkiptitimar;
         const vvnaa = hopur.fjoldiAnAlags*a.vinna_per_nemanda/60;
         const vvn20a = hopur.fjoldi20Alag*1.2*a.vinna_per_nemanda/60;
         const vvn100a = hopur.fjoldi100Alag*2*a.vinna_per_nemanda/60;
         const f = (afangar[heiti].synidaemi ==='Hægferð')?1:parseFloat(a.einingar)/3;
-        console.log(vvn);
+        
         return {
           ...afangar[heiti],
           ...hopur,
@@ -68,7 +67,7 @@ class NidurstodurSundurlidun extends Component {
           undirbuningurKennsluStrengur: `${a.kennsluvikur} vikur x ${a.kennslustundir} kennslustundir x ${a.lengdKst} mín/40 mín x ${a.undirb_kennslu} mín = ${a.undirbuningurKennslu} klst.`,
           undirbuningurTolurStrengur: `= ${talaToString(a.timar_namsAetlun*f,1)} klst. + ${talaToString(a.verkefnisgerd*f,1)} klst. + ${talaToString(a.onnur_vinna*f,1)} klst. = ${talaToString(a.fastirLidir,1)} klst.`,
           vinnaVegnaNemendaStrengur: `${hopur.fjoldiAnAlags} x ${talaToString(a.vinna_per_nemanda/60*f,2)} + ${hopur.fjoldi20Alag} x ${talaToString(a.vinna_per_nemanda/60*f*1.2,1)} + ${hopur.fjoldi100Alag} x ${talaToString(a.vinna_per_nemanda/60*f*2,1)} = ${talaToString(vvnaa,1)} + ${talaToString(vvn20a,1)} + ${talaToString(vvn100a,1)} = ${talaToString(vvn,1)} klst.`,
-          skiptitimarStrengur: `62,5% x ${a.skiptitimar} mín/(${a.kennslustundir}x${a.lengdKst} mín) x vinnumat án skiptitíma=${talaToString(hopur.vinnumatSkiptitimar,1)} klst.`,
+          skiptitimarStrengur: `62,5% x ${a.skiptitimar} mín/(${a.kennslustundir}x${a.lengdKst} mín) x vinnumat án skiptitíma og skerðinga=${talaToString(hopur.vinnumatSkiptitimar,1)} klst.`,
           skerdingarStrengur: `${talaToString(a.skerdingarprosenta,1)} % af vinnumati meðalhóps.`,
           f: f    
         }
@@ -283,21 +282,6 @@ class NidurstodurSundurlidun extends Component {
                           </div>
                         } 
                         secondaryText={hopur.undirbuningurKennsluStrengur}/>
-                      {
-                        hopur.skiptitimar > 0 &&
-                        <ListItem
-                        leftIcon={<Add/>} 
-                        primaryText={
-                          <div style={{display: 'flex',
-                            flexWrap: 'wrap',
-                            justifyContent: 'space-between'}}
-                          >    
-                            <div>{`Vinnumat vegna skiptitíma: `}</div>
-                            <div>{`${talaToString(hopur.vinnumatSkiptitimar,1)} klst.`}</div>
-                          </div>
-                        } 
-                        secondaryText={hopur.skiptitimarStrengur}/> 
-                      }  
                       <ListItem
                         leftIcon={<Add/>}  
                         primaryText={
@@ -340,6 +324,21 @@ class NidurstodurSundurlidun extends Component {
                         innerDivStyle={{paddingTop: '0%',paddingBottom: '0%',marginTop:'0%',marginBottom:'0%'}} 
                         secondaryTextLines={2}
                         secondaryText={hopur.vinnaVegnaNemendaStrengur}/>
+                      {
+                        hopur.skiptitimar > 0 &&
+                        <ListItem
+                        leftIcon={<Add/>} 
+                        primaryText={
+                          <div style={{display: 'flex',
+                            flexWrap: 'wrap',
+                            justifyContent: 'space-between'}}
+                          >    
+                            <div>{`Vinnumat vegna skiptitíma: `}</div>
+                            <div>{`${talaToString(hopur.vinnumatSkiptitimar,1)} klst.`}</div>
+                          </div>
+                        } 
+                        secondaryText={hopur.skiptitimarStrengur}/> 
+                      }  
                       <ListItem 
                         primaryText={
                           <div style={{display: 'flex',
