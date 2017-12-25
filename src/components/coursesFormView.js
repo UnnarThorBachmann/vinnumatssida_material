@@ -12,6 +12,7 @@ import VikurView from './vikurView.js';
 import LengdView from './lengdView.js';
 import KennslustundirView from './kennslustundirView.js';
 import FjoldiView from './fjoldiView.js';
+import SkiptitimarView from './skiptitimarView.js';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import ContentRemove from 'material-ui/svg-icons/content/remove';
 
@@ -54,13 +55,17 @@ class CourseFormView extends Component {
       kennslustundir: 6,
       lengdKst: 40,
       hopar: [{fjoldi: 25}],
-      heitiValidated: false,
-      einingarValidatated: true
+      heitiNotEmpty: false,
+      einingarIsNumber: true,
+      skiptitimarIsNumber: true,
+      skiptitimar: '0',
+      disabled: true
 
     }
 
     this.changeHeiti = this.changeHeiti.bind(this);
     this.changeEiningar = this.changeEiningar.bind(this);
+    this.changeSkiptitimar = this.changeSkiptitimar.bind(this);
     this.changeSynidaemi = this.changeSynidaemi.bind(this);
     this.changeKennsluvikur = this.changeKennsluvikur.bind(this);
     this.changeKennslustundir = this.changeKennslustundir.bind(this);
@@ -76,20 +81,41 @@ class CourseFormView extends Component {
 
   changeHeiti(heiti) {
     
-    this.setState({heiti: heiti,
-                    heitiValidated: heiti.trim() !== ''
+    this.setState((state)=>{
+      return {heiti: heiti,
+              heitiNotEmpty: heiti.trim() !== '',
+              disabled: heiti.trim() === '' || !state.einingarIsNumber || !state.skiptitimarIsNumber
+      }
     })
     
   };
 
   changeEiningar(einingar) {
     if (this.state.synidaemi === 'Hægferð')
-      this.setState({einingar: '2',
-        einingarValidated: (isNaN(einingar.replace(',','.')) || einingar.trim() === '')? true:false
-      })
-    else
-      this.setState({einingar: einingar,
-        einingarValidated: (isNaN(einingar.replace(',','.')) || einingar.trim() === '')? true:false
+      this.setState((state)=> {
+        const isNumber = (isNaN(einingar.replace(',','.')) || einingar.trim() === '')? false:true;
+        return {einingar: '2',
+                  einingarIsNumber: isNumber,
+                  disabled: !isNumber || !state.heitiNotEmpty || !state.skiptitimarIsNumber
+              }})
+      else
+        this.setState((state)=> {
+          const isNumber = (isNaN(einingar.replace(',','.')) || einingar.trim() === '')? false:true;
+          return {einingar: einingar,
+                  einingarIsNumber: isNumber,
+                  disabled: !isNumber || !state.heitiNotEmpty || !state.skiptitimarIsNumber
+          }
+        })
+    
+  };
+  changeSkiptitimar(skiptitimar) {
+      
+      this.setState((state)=> {
+        const isNumber = (isNaN(skiptitimar.replace(',','.')) || skiptitimar.trim() === '')? false:true;
+        return {  skiptitimar: skiptitimar,
+                  skiptitimarIsNumber: isNumber,
+                  disabled: !isNumber || !state.heitiNotEmpty || !state.einingarIsNumber
+        }
       })
     
   };
@@ -99,6 +125,10 @@ class CourseFormView extends Component {
       this.setState({synidaemi: synidaemi,einingar: '2'})
     else
       this.setState({synidaemi: synidaemi})
+
+    if (synidaemi !=='Raungreinar')
+      this.setState({skiptitimarIsNumber: true,skiptitimar: '0'})
+
   }
 
   changeKennsluvikur(kennsluvikur) {
@@ -147,7 +177,7 @@ class CourseFormView extends Component {
 
     dispatch(addAfangi({...this.state}));
   }
-
+  
   render() {
     return (
       <div> 
@@ -170,9 +200,16 @@ class CourseFormView extends Component {
               <KennslustundirView textalitur={grey900} focuslitur={deepOrangeA400} kennslustundir={this.state.kennslustundir} changeKennslustundir={this.changeKennslustundir}/>
               <br/>
               <LengdView textalitur={grey900} focuslitur={deepOrangeA400} lengd={this.state.lengdKst} changeLengd={this.changeLengd}/>
+              {
+                this.state.synidaemi==='Raungreinar' &&
+                <div>
+                <br/>
+                <SkiptitimarView textalitur={grey900} focuslitur={deepOrangeA400} skiptitimar={this.state.skiptitimar} changeSkiptitimar={this.changeSkiptitimar}/>
+                </div>
+              }
           </div>
           <div style={{...styles.thumb, ...this.props.mobilestyle}}>
-              <h4>Fjöldatölur 
+              <h4>Fjöldi hópa 
                   <Badge
                     badgeContent={this.state.hopar.length}
                     primary={true}
@@ -202,7 +239,10 @@ class CourseFormView extends Component {
           </div>
         </div>
         <div style={{width: '100%'}}>
-              <FloatingActionButton style={{marginRight: 20, float: 'right'}} disabled={!this.state.heitiValidated || this.state.einingarValidated} backgroundColor={deepOrangeA400} onClick={this.addAfangi}>
+              <FloatingActionButton style={{marginRight: 20, float: 'right'}} 
+                disabled={this.state.disabled} 
+                backgroundColor={deepOrangeA400} 
+                onClick={this.addAfangi}>
                 <ContentAdd />
               </FloatingActionButton>
         </div>

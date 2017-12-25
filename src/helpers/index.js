@@ -37,20 +37,24 @@ export function addProps(afangi,synidaemi) {
 	afangi = {...afangi, 
 			...synidaemi,
 			einingar: parseFloat(afangi.einingar.replace(',','.')),
+            skiptitimar: parseFloat(afangi.skiptitimar.replace(',','.')),
 			heiti: afangi.heiti
 	};
 	const f = (synidaemi.heiti === 'Hægferð')?1:parseFloat(afangi.einingar)/3;
+    afangi.onnur_vinna = afangi.skiptitimar > 0 ? 0:afangi.onnur_vinna; 
+    afangi.skiptitimarHlutfall = 0.625*parseFloat(afangi.skiptitimar)/(parseFloat(afangi.kennslustundir)*parseFloat(afangi.lengdKst));
 
 	afangi.medalfjoldi = afangi.hopar.reduce((summa,hopur)=>summa + hopur.fjoldi,0)/afangi.hopar.length;
 	afangi.skerdingarprosenta = 100*skerdingarprosenta(afangi.hopar.length);
 	afangi.stadinKennsla = afangi.kennsluvikur*afangi.kennslustundir*afangi.lengdKst/60;
 	afangi.undirbuningurKennslu = afangi.stadinKennsla/40*afangi.undirb_kennslu;
 	afangi.fastirLidir = (afangi.timar_namsAetlun + afangi.verkefnisgerd+ afangi.onnur_vinna)*f;
-	afangi.samtalsAnNemenda = afangi.stadinKennsla+afangi.undirbuningurKennslu + afangi.fastirLidir
+	afangi.samtalsAnNemenda = afangi.stadinKennsla+afangi.undirbuningurKennslu + afangi.fastirLidir;
 	afangi.skerding = afangi.hopar.length==1?0:(afangi.samtalsAnNemenda + vinnaVegnaNemenda(afangi.medalfjoldi,afangi))*(afangi.skerdingarprosenta)/100;
     afangi.hopar = afangi.hopar.map((hopur)=>{
     	return {fjoldi: hopur.fjoldi,
-    			vinnumat: afangi.samtalsAnNemenda-afangi.skerding + vinnaVegnaNemenda(hopur.fjoldi,afangi),
+                vinnumatSkiptitimar:(afangi.samtalsAnNemenda-afangi.skerding + vinnaVegnaNemenda(hopur.fjoldi,afangi))*afangi.skiptitimarHlutfall,
+    			vinnumat: (afangi.samtalsAnNemenda-afangi.skerding + vinnaVegnaNemenda(hopur.fjoldi,afangi))*(1+afangi.skiptitimarHlutfall),
                 fjoldiAnAlags: afangi.lagmark-hopur.fjoldi > 0 ? afangi.lagmark:(afangi.hamark_n-hopur.fjoldi > 0?hopur.fjoldi:afangi.hamark_n),
                 fjoldi20Alag: afangi.hamark_n===afangi.hamark_e ? 0:Math.min(2,Math.max(0,hopur.fjoldi-afangi.hamark_n)),
                 fjoldi100Alag: hopur.fjoldi-afangi.hamark_e > 0?hopur.fjoldi-afangi.hamark_e:0}

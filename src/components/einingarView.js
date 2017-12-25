@@ -25,7 +25,7 @@ export default class EiningarView extends Component {
         
         <TextField
           value={this.state.einingar}
-          floatingLabelText="Einingar"
+          floatingLabelText="Einingar (gamlar)"
           floatingLabelStyle={{color: this.props.textalitur}}
           underlineFocusStyle={{borderColor: this.props.focuslitur}}
           onChange={this.handleChangeEiningar}
