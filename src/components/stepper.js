@@ -12,6 +12,13 @@ import AboutTeacherView from './aboutTeacherView.js';
 import CoursesFormView from './coursesFormView.js';
 import Nidurstodur from './nidurstodur.js';
 import NidurstodurSundurlidun from './nidurstodurSundurlidun.js';
+import Rusl from 'material-ui/svg-icons/action/delete';
+import Endurtaka from 'material-ui/svg-icons/action/autorenew';
+import Skapa from 'material-ui/svg-icons/content/create';
+import IconButton from 'material-ui/IconButton';
+import {storedData,storeData,deleteData} from '../utils';
+import {set,refresh} from '../actions';
+import {connect} from 'react-redux';
 
 class StepperProgress extends React.Component {
 
@@ -38,6 +45,28 @@ class StepperProgress extends React.Component {
   };
   handleInvalid = (afram)=> {
     this.setState({afram: afram})
+  }
+
+  save = ()=>{
+    storeData(this.props.storeState);
+
+  }
+
+  delete=()=> {
+    deleteData();
+    this.props.dispatch(refresh());
+
+  }
+
+  save = ()=>{
+    storeData(this.props.storeState);
+    this.setState({stepIndex: 0, finished: false});
+  }
+
+  delete=()=> {
+    deleteData();
+    this.props.dispatch(refresh());
+    this.setState({stepIndex: 0, finished: false});
   }
   getStepContent(stepIndex) {
     switch (stepIndex) {
@@ -96,17 +125,29 @@ class StepperProgress extends React.Component {
         <div style={contentStyle}>
           {finished ? (
             <div>
-            <p>
-              <a
-                href="#"
-                onClick={(event) => {
+            <div>
+              <IconButton
+                iconStyle={{color: this.props.iconColor}}
+                onClick={(event)=>{
                   event.preventDefault();
                   this.setState({stepIndex: 0, finished: false});
                 }}
               >
-                Byrja aftur
-              </a>
-            </p>
+                <Endurtaka/>
+              </IconButton>
+              <IconButton 
+                iconStyle={{color: this.props.iconColor}}
+                onClick={this.save}
+              >
+                <Skapa/>
+              </IconButton>
+              <IconButton 
+                iconStyle={{color: this.props.iconColor}}
+                onClick={this.delete}
+              >
+                <Rusl/>
+              </IconButton>
+            </div>
             <NidurstodurSundurlidun/>
             </div>
           ) : (
@@ -136,5 +177,8 @@ class StepperProgress extends React.Component {
   }
 }
 
+const mapStateToProps = (state)=>({
+  storeState: {...state}
+});
 
-export default StepperProgress;
+export default connect(mapStateToProps)(StepperProgress);
