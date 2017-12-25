@@ -9,7 +9,7 @@ export const ADD_AFANGI = 'ADD_AFANGI';
 export const DELETE_AFANGI = 'DELETE_AFANGI';
 export const SET = 'SET';
 export const GET = 'GET';
-
+export const REFRESH = 'REFRESH';
 export function fulltStarf(fulltStarf) {
   return {
       type: FULLT_STARF,
@@ -79,6 +79,13 @@ export function set(state) {
   return {
       type: SET,
       state: state
+    }
+  
+}
+
+export function refresh() {
+  return {
+      type: REFRESH
     }
   
 }

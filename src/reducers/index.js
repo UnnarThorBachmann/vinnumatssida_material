@@ -8,7 +8,8 @@ import {
  DELETE_AFANGI,
  FULLT_STARF,
  LAUN,
- SET
+ SET,
+ REFRESH
 } from '../actions';
 import {vinnuskylda,
   kennsluafslattur,
@@ -87,7 +88,10 @@ export default function reducerinn(state={...initialState},action) {
         return {
           ...action.state
         }
-    
+      case REFRESH:
+        return {
+        ...initialState
+      }
 
       default:
         return state;

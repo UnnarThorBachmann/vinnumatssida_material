@@ -10,7 +10,7 @@ export default class ToogleView extends Component {
   
 
   changeFulltStarf = (event,toggled)=> {
-    console.log(toggled);
+    
     this.props.changeFulltStarf(toggled); 
   }
 
@@ -29,7 +29,6 @@ export default class ToogleView extends Component {
             trackSwitchedStyle={{backgroundColor: focuslitur}}
             thumbSwitchedStyle={{backgroundColor: focuslitur}}
             onToggle={this.changeFulltStarf}
-            //defaultToggled={fulltStarf}
             toggled={fulltStarf}
           />
           <br/>
@@ -39,7 +38,6 @@ export default class ToogleView extends Component {
             thumbSwitchedStyle={{backgroundColor: focuslitur}}
             onToggle={this.changeLaun}
             disabled={!fulltStarf}
-            //defaultToggled={laun}
             toggled={laun}
           />
         
