@@ -10,6 +10,7 @@ export function vinnuskylda(aldur) {
 	}
 }
 
+
 export function kennsluafslattur(aldur) {
 	switch(aldur) {
 		case '55-60 ára':
@@ -123,6 +124,7 @@ export const launatafla =
 };
 
 export const initialState = {
+
       aldur: '30 ára-',
       vinnuskylda: 720,
       timar: '0',
@@ -132,7 +134,10 @@ export const initialState = {
       threp: 0,
       grunnlaun: launatafla[1][0],
       afangar: {},
-      afram: true
+      afram: true,
+      laun: false,
+      fulltStarf: false
+
 };
 
 export const Synidaemi = {

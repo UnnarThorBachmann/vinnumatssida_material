@@ -25,11 +25,12 @@ const muiTheme = getMuiTheme({
 
 class App extends Component {
 
+  
   render() {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
       <div>
-        <TabView/>  
+        <TabView iconColor={deepOrangeA400}/>  
         <StepperProgress iconColor={deepOrangeA400}/>
       </div>
       </MuiThemeProvider>

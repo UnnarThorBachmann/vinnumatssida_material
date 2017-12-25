@@ -7,7 +7,8 @@ export const FULLT_STARF = 'FULLT_STARF';
 export const LAUN = 'LAUN';
 export const ADD_AFANGI = 'ADD_AFANGI';
 export const DELETE_AFANGI = 'DELETE_AFANGI';
-
+export const SET = 'SET';
+export const GET = 'GET';
 
 export function fulltStarf(fulltStarf) {
   return {
@@ -71,4 +72,13 @@ export function deleteAfangi(nafn) {
       type: DELETE_AFANGI,
       nafn: nafn
     }
+
+}
+
+export function set(state) {
+  return {
+      type: SET,
+      state: state
+    }
+  
 }

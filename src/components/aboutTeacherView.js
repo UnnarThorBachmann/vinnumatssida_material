@@ -7,11 +7,11 @@ import LaunaflokkurView from './launaflokkurView.js';
 import ThrepView from './threpView.js';
 import StarfshlutfallView from './starfshlutfallView.js';
 import OnnurStorfView from './onnurStorfView.js';
+import ToggleView from './toggleView.js';
 import {setLaunaflokkur,setThrep,setVinnuskylda,setStarfshlutfall,setOnnurStorf,fulltStarf,laun} from '../actions'; 
 
 import TextField from 'material-ui/TextField';
 import {grey900,deepOrangeA400} from 'material-ui/styles/colors';
-import Toggle from 'material-ui/Toggle';
 import {connect} from 'react-redux';
 
 
@@ -37,10 +37,11 @@ const styles = {
 class AboutTeacherView extends Component {
   constructor(props) {
     super(props);
+    /*
     this.state = {
       fulltStarf: props.fulltStarf,
       laun: props.laun
-    }
+    }*/
     this.changeOnnurStorf = this.changeOnnurStorf.bind(this);
     this.changeLaunaflokkur = this.changeLaunaflokkur.bind(this);
     this.changeThrep = this.changeThrep.bind(this);
@@ -82,19 +83,23 @@ class AboutTeacherView extends Component {
     dispatch(setStarfshlutfall(starfshlutfall));
   }
 
-  changeFulltStarf(event, toggled) {
+  changeFulltStarf(toggled) {
     const {dispatch} = this.props;
+    
     dispatch(fulltStarf(toggled));
   
   };
 
-  changeLaun (event, toggled) {
+  changeLaun (toggled) {
     const {dispatch} = this.props;
     dispatch(laun(toggled));
   };
 
-
-  
+  componentWillReceiveProps(nextProps) {
+    this.setState({laun: nextProps.laun,
+                  fulltStarf: nextProps.fulltStarf
+    });
+  }
 
   render() {
     const {launaflokkur, threp, timar, aldur, starfshlutfall,fulltStarf,laun} = this.props;
@@ -110,23 +115,15 @@ class AboutTeacherView extends Component {
             <h3>Reikna vinnumat</h3>
               <p>Hægt að nota til að reikna vinnumat stakra áfanga. Veljið fullt vinnumat eða launaútreikninga eftir þörfum</p>
               <br/>
-              <Toggle
-                label="Fullt vinnumat"
-                trackSwitchedStyle={{backgroundColor: deepOrangeA400}}
-                thumbSwitchedStyle={{backgroundColor: deepOrangeA400}}
-                onToggle={this.changeFulltStarf}
-                defaultToggled={this.state.fulltStarf}
+              <ToggleView
+                textalitur={grey900} 
+                focuslitur={deepOrangeA400} 
+                timar={timar} 
+                changeFulltStarf = {this.changeFulltStarf}
+                changeLaun = {this.changeLaun}
+                fulltStarf = {fulltStarf}
+                laun = {laun}
               />
-              <br/>
-              <Toggle
-                label="Reikna Laun"
-                trackSwitchedStyle={{backgroundColor: deepOrangeA400}}
-                thumbSwitchedStyle={{backgroundColor: deepOrangeA400}}
-                onToggle={this.changeLaun}
-                disabled={!fulltStarf}
-                defaultToggled={this.state.laun}
-              />
-
           </div>
           {fulltStarf &&
           <div style={{...styles.main,...this.props.mobilestyle}}>

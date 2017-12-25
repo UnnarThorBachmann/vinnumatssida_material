@@ -7,18 +7,19 @@ import {
  ADD_AFANGI,
  DELETE_AFANGI,
  FULLT_STARF,
- LAUN
+ LAUN,
+ SET
 } from '../actions';
 import {vinnuskylda,
   kennsluafslattur,
   Synidaemi,
-  initialState,
   getterState,
   addProps,
-  launatafla} from '../helpers';
+  launatafla,
+  initialState} from '../helpers';
 
 
-export default function comments(state={...initialState},action) {
+export default function reducerinn(state={...initialState},action) {
   switch(action.type) {
       case  SET_LAUNAFLOKKUR:
         return {
@@ -82,7 +83,12 @@ export default function comments(state={...initialState},action) {
           }
           
         }
-      
+      case SET:
+        return {
+          ...action.state
+        }
+    
+
       default:
         return state;
   }

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import {grey900,deepOrangeA400} from 'material-ui/styles/colors';
 
 const ages = ["30 ára-","30-37 ára","38-54 ára","55-60 ára","60 ára+","60 ára+ (17 tímar)"];
 
