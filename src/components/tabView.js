@@ -5,8 +5,8 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import FlatButton from 'material-ui/FlatButton';
 import Toggle from 'material-ui/Toggle';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import ContentRemove from 'material-ui/svg-icons/action/delete';
+
 
 
 class TabView extends Component {
@@ -16,6 +16,7 @@ class TabView extends Component {
       <div>
         <AppBar
           title="Vinnumat"
+          iconElementRight={<IconButton><ContentRemove/></IconButton>}
           showMenuIconButton={false}
         />
       </div>
