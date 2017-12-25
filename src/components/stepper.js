@@ -56,7 +56,7 @@ class StepperProgress extends React.Component {
           <div>
             <Media query="(max-width: 800px)">
               {matches =>
-                matches ? <CoursesFormView mobilestyle={{width: '100%'}}/>:<CoursesFormView mobilestyle={{width: '25%'}}/>
+                matches ? <CoursesFormView mobilestyle={{width: '100%'}} mini={true}/>:<CoursesFormView mobilestyle={{width: '25%'}} mini={false}/>
               }
             </Media>
           </div>
@@ -117,12 +117,13 @@ class StepperProgress extends React.Component {
                   label="Aftur"
                   disabled={stepIndex === 0}
                   onClick={this.handlePrev}
-                  style={{marginRight: 12}}
+                  style={{marginRight: 12,marginTop: 10}}
                 />
                 <RaisedButton
                   label={stepIndex === 2 ? 'Enda' : 'Áfram'}
                   backgroundColor={this.props.iconColor}
                   labelColor='#FFFFFF'
+                  style={{marginTop: 10}}
                   onClick={this.handleNext}
                   disabled={!this.state.afram}
                 />

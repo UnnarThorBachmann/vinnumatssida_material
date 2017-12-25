@@ -38,8 +38,8 @@ class AboutTeacherView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fulltStarf: this.props.fulltStarf,
-      laun: this.props.laun
+      fulltStarf: props.fulltStarf,
+      laun: props.laun
     }
     this.changeOnnurStorf = this.changeOnnurStorf.bind(this);
     this.changeLaunaflokkur = this.changeLaunaflokkur.bind(this);
@@ -92,6 +92,9 @@ class AboutTeacherView extends Component {
     const {dispatch} = this.props;
     dispatch(laun(toggled));
   };
+
+
+  
 
   render() {
     const {launaflokkur, threp, timar, aldur, starfshlutfall,fulltStarf,laun} = this.props;

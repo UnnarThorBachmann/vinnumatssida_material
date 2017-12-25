@@ -59,8 +59,10 @@ class CourseFormView extends Component {
       einingarIsNumber: true,
       skiptitimarIsNumber: true,
       skiptitimar: '0',
-      disabled: true
-
+      disabled: true,
+      afangar: props.afangar,
+      heitin: Object.keys(props.afangar),
+      selectedHeiti: null
     }
 
     this.changeHeiti = this.changeHeiti.bind(this);
@@ -76,9 +78,15 @@ class CourseFormView extends Component {
     this.addAfangi = this.addAfangi.bind(this);
     this.addHopur = this.addHopur.bind(this);
     this.removeHopur = this.removeHopur.bind(this);
-
+    this.handleChangeSelectedHeiti = this.handleChangeSelectedHeiti.bind(this);
   }  
-
+  
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+    this.setState({afangar: nextProps.afangar,
+                   heitin: Object.keys(nextProps.afangar)
+    });
+  }
   changeHeiti(heiti) {
     
     this.setState((state)=>{
@@ -152,6 +160,7 @@ class CourseFormView extends Component {
       }
     });
   }
+
   addHopur() {
     this.setState((state)=> {
 
@@ -177,10 +186,48 @@ class CourseFormView extends Component {
 
     dispatch(addAfangi({...this.state}));
   }
-  
+  handleChangeSelectedHeiti(event,index,value) {
+
+    if (event.target.value === null)
+      this.setState({selectedHeiti: value})
+    else {
+      const afangi = this.state.afangar[value];
+      this.setState({
+        selectedHeiti: null,
+        heiti: afangi.heiti,
+        einingar: afangi.einingar.toString(),
+        synidaemi: afangi.synidaemi,
+        kennsluvikur: afangi.kennsluvikur,
+        kennslustundir: afangi.kennslustundir,
+        lengdKst: afangi.lengdKst,
+        hopar: afangi.hopar,
+        heitiNotEmpty: true,
+        einingarIsNumber: true,
+        skiptitimarIsNumber: true,
+        skiptitimar: '0',
+        disabled: false,
+
+      });
+    }
+
+  }
   render() {
     return (
-      <div> 
+      <div>
+        {this.state.heitin.length > 0 &&
+
+        <div>
+          <SelectField
+            floatingLabelText="Vistaðir áfangar"
+            value={this.state.selectedHeiti}
+            onChange={this.handleChangeSelectedHeiti}
+          >
+            <MenuItem value={this.state.selectedHeiti} primaryText="" />
+            {
+              this.state.heitin.map((heiti)=> <MenuItem key={heiti} value={heiti} primaryText={heiti} />)
+            }
+          </SelectField>
+        </div>}
         <div style={{display: 'flex',
                       flexWrap: 'wrap',
                       justifyContent: 'flex-start'}}
@@ -239,7 +286,9 @@ class CourseFormView extends Component {
           </div>
         </div>
         <div style={{width: '100%'}}>
-              <FloatingActionButton style={{marginRight: 20, float: 'right'}} 
+              <FloatingActionButton 
+                style={{marginRight: 20, marginTop: 10, float: 'right'}}
+                mini={this.props.mini} 
                 disabled={this.state.disabled} 
                 backgroundColor={deepOrangeA400} 
                 onClick={this.addAfangi}>
@@ -251,4 +300,9 @@ class CourseFormView extends Component {
   }
 }
 
-export default connect()(CourseFormView)
+const mapStateToProps = (state)=> ({
+    afangar: state.afangar,
+    heitin: Object.keys(state.afangar)
+});
+
+export default connect(mapStateToProps)(CourseFormView)
