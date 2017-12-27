@@ -57,6 +57,16 @@ class NidurstodurSundurlidun extends Component {
         const vvn20a = hopur.fjoldi20Alag*1.2*a.vinna_per_nemanda/60;
         const vvn100a = hopur.fjoldi100Alag*2*a.vinna_per_nemanda/60;
         const f = (afangar[heiti].synidaemi ==='Hægferð')?1:parseFloat(a.einingar)/3;
+        let vinnaVegnaNemendaStrengur = `${hopur.fjoldiAnAlags} x ${talaToString(a.vinna_per_nemanda/60*f,2)} klst.`;
+        
+        if (hopur.fjoldi20Alag > 0)
+          vinnaVegnaNemendaStrengur += ` + ${hopur.fjoldi20Alag} x ${talaToString(a.vinna_per_nemanda/60*f*1.2,1)} klst.`;
+        
+
+        if (hopur.fjoldi100Alag > 0)
+          vinnaVegnaNemendaStrengur += ` + ${hopur.fjoldi100Alag} x ${talaToString(a.vinna_per_nemanda/60*f*2,1)} klst.`;
+        
+        vinnaVegnaNemendaStrengur += ` = ${talaToString(vvn,1)} klst.`
         
         return {
           ...afangar[heiti],
@@ -66,7 +76,7 @@ class NidurstodurSundurlidun extends Component {
           stadinKennslaStrengur: `${a.kennsluvikur} vikur x ${a.kennslustundir} kennslustundir x ${a.lengdKst} mín = ${a.stadinKennsla} klst.`,
           undirbuningurKennsluStrengur: `${a.kennsluvikur} vikur x ${a.kennslustundir} kennslustundir x ${a.lengdKst} mín/40 mín x ${a.undirb_kennslu} mín = ${a.undirbuningurKennslu} klst.`,
           undirbuningurTolurStrengur: `= ${talaToString(a.timar_namsAetlun*f,1)} klst. + ${talaToString(a.verkefnisgerd*f,1)} klst. + ${talaToString(a.onnur_vinna*f,1)} klst. = ${talaToString(a.fastirLidir,1)} klst.`,
-          vinnaVegnaNemendaStrengur: `${hopur.fjoldiAnAlags} x ${talaToString(a.vinna_per_nemanda/60*f,2)} + ${hopur.fjoldi20Alag} x ${talaToString(a.vinna_per_nemanda/60*f*1.2,1)} + ${hopur.fjoldi100Alag} x ${talaToString(a.vinna_per_nemanda/60*f*2,1)} = ${talaToString(vvnaa,1)} + ${talaToString(vvn20a,1)} + ${talaToString(vvn100a,1)} = ${talaToString(vvn,1)} klst.`,
+          vinnaVegnaNemendaStrengur: vinnaVegnaNemendaStrengur,
           skiptitimarStrengur: `62,5% x ${a.skiptitimar} mín/(${a.kennslustundir}x${a.lengdKst} mín) x vinnumat án skiptitíma og skerðinga=${talaToString(hopur.vinnumatSkiptitimar,1)} klst.`,
           skerdingarStrengur: `${talaToString(a.skerdingarprosenta,1)} % af vinnumati meðalhóps.`,
           f: f    

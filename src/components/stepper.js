@@ -12,6 +12,8 @@ import AboutTeacherView from './aboutTeacherView.js';
 import CoursesFormView from './coursesFormView.js';
 import Nidurstodur from './nidurstodur.js';
 import NidurstodurSundurlidun from './nidurstodurSundurlidun.js';
+import NidurstodurSundurlidunMobile from './nidurstodurSundurlidunMobile.js';
+
 import Rusl from 'material-ui/svg-icons/action/delete';
 import Endurtaka from 'material-ui/svg-icons/action/autorenew';
 import Skapa from 'material-ui/svg-icons/content/create';
@@ -72,7 +74,7 @@ class StepperProgress extends React.Component {
       case 0:
         return (
           <div>
-            <Media query="(max-width: 800px)">
+            <Media query="(max-width: 768px)">
               {matches =>
                 matches ? <AboutTeacherView invalid={this.handleInvalid} mobilestyle={{width: '100%'}}/>:<AboutTeacherView invalid={this.handleInvalid} mobilestyle={{width: '25%'}}/>
               }
@@ -82,7 +84,7 @@ class StepperProgress extends React.Component {
       case 1:
         return (
           <div>
-            <Media query="(max-width: 800px)">
+            <Media query="(max-width: 768px)">
               {matches =>
                 matches ? <CoursesFormView mobilestyle={{width: '100%'}} mini={true}/>:<CoursesFormView mobilestyle={{width: '25%'}} mini={false}/>
               }
@@ -92,9 +94,9 @@ class StepperProgress extends React.Component {
       case 2:
         return (
           <div>
-            <Media query="(max-width: 800px)">
+            <Media query="(max-width: 768px)">
               {matches =>
-                matches ? <Nidurstodur mobilestyle={{width: '100%'}}/>:<Nidurstodur mobilestyle={{width: '25%'}}/>
+                matches ?<Nidurstodur mobilestyle={{width: '100%'}}/>:<Nidurstodur mobilestyle={{width: '25%'}}/>
               }
             </Media>
           </div>
@@ -143,7 +145,13 @@ class StepperProgress extends React.Component {
                 <Rusl/>
               </IconButton>
             </div>
-            <NidurstodurSundurlidun/>
+            <Media query="(max-width: 768px)">
+              {matches =>
+                matches?<NidurstodurSundurlidunMobile/>:<NidurstodurSundurlidun/>
+                              
+              }
+            </Media>
+            
             </div>
           ) : (
             <div>

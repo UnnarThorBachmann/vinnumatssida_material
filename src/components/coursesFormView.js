@@ -86,7 +86,6 @@ class CourseFormView extends Component {
   }  
   
   componentWillReceiveProps(nextProps) {
-    console.log('her');
     this.setState({afangar: nextProps.afangar,
                    heitin: Object.keys(nextProps.afangar)
     });
@@ -350,8 +349,8 @@ class CourseFormView extends Component {
               <RaisedButton 
                 style={{marginRight: 10, marginTop: 10, float: 'right', width:'20%',...this.props.mobilestyle}}
                 backgroundColor={deepOrangeA400}
-                labelColor={'white'}
-                label={'Bæta við áfanga'} 
+                labelColor='#FFFFFF'
+                label={'Bæta við (vista) áfanga'} 
                 disabled={this.state.disabled} 
                 onClick={this.addAfangi}/>
         </div>   
