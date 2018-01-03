@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {grey900,grey50,deepOrangeA400} from 'material-ui/styles/colors';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import TabView from './components/tabView.js';
 import StepperProgress from './components/stepper.js';

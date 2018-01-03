@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import Media from 'react-media';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+
 import AgeView from './ageView.js';
 import LaunaflokkurView from './launaflokkurView.js';
 import ThrepView from './threpView.js';
@@ -10,7 +8,6 @@ import OnnurStorfView from './onnurStorfView.js';
 import ToggleView from './toggleView.js';
 import {setLaunaflokkur,setThrep,setVinnuskylda,setStarfshlutfall,setOnnurStorf,fulltStarf,laun} from '../actions'; 
 
-import TextField from 'material-ui/TextField';
 import {grey900,deepOrangeA400} from 'material-ui/styles/colors';
 import {connect} from 'react-redux';
 

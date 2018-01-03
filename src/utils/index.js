@@ -1,5 +1,3 @@
-import {launatafla} from '../helpers'
-
 const STORAGE_KEY = '1aff148nvm3493ma6';
 
 

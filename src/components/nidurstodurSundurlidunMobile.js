@@ -1,18 +1,13 @@
 import React, {Component} from 'react';
-import {grey900,deepOrangeA400} from 'material-ui/styles/colors';
 import {connect} from 'react-redux';
 
 import {List, ListItem} from 'material-ui/List';
-import Divider from 'material-ui/Divider';
-import Subheader from 'material-ui/Subheader';
 import Add from 'material-ui/svg-icons/content/add';
 import Forward from 'material-ui/svg-icons/content/forward';
 import Remove from 'material-ui/svg-icons/content/remove';
 import Equal from 'material-ui/svg-icons/editor/drag-handle';
+import {talaToString} from '../helpers';
 
-
-
-import {talaToString,vinnaVegnaNemenda,skerdingarprosenta} from '../helpers';
 const styles = {
   main: {
     marginLeft: '1%',
@@ -39,10 +34,7 @@ const styles = {
 
 
 class NidurstodurSundurlidun extends Component {
-  constructor(props) {
-    super(props);
-
-  }
+  
  
 
   render() {
@@ -53,9 +45,7 @@ class NidurstodurSundurlidun extends Component {
       afangar[heiti].hopar = afangar[heiti].hopar.map((hopur,index)=> {
         const a = afangar[heiti];
         const vvn = hopur.vinnumat-a.stadinKennsla-a.fastirLidir + a.skerding-a.undirbuningurKennslu-hopur.vinnumatSkiptitimar;
-        const vvnaa = hopur.fjoldiAnAlags*a.vinna_per_nemanda/60;
-        const vvn20a = hopur.fjoldi20Alag*1.2*a.vinna_per_nemanda/60;
-        const vvn100a = hopur.fjoldi100Alag*2*a.vinna_per_nemanda/60;
+        
         const f = (afangar[heiti].synidaemi ==='Hægferð')?1:parseFloat(a.einingar)/3;
         let vinnaVegnaNemendaStrengur = `${hopur.fjoldiAnAlags} x ${talaToString(a.vinna_per_nemanda/60*f,2)} klst.`;
         
@@ -161,19 +151,20 @@ class NidurstodurSundurlidun extends Component {
                         secondaryText={`${talaToString(hopur.stadinKennsla,1)} klst.`}
                       />
                       <ListItem
-                        innerDivStyle={{paddingTop: '0%',paddingBottom: '0%',marginTop:'0%',marginBottom:'0%'}}
+                        innerDivStyle={{paddingTop: '0%',paddingBottom: '5%',marginTop:'0%',marginBottom:'0%'}}
                         leftIcon={<Add/>} 
-                        primaryText={`Undirbúningur: `}
+                        primaryText={<div><div></div><div>{`Undirbúningur: `}</div></div>}
                         secondaryText={`${hopur.undirbuningurKennslu} klst.`}
                       />
                       <ListItem
-                        innerDivStyle={{paddingTop: '0%',paddingBottom: '0%',marginTop:'0%',marginBottom:'0%'}}
+                        innerDivStyle={{paddingTop: '0%',paddingBottom: '5%',marginTop:'0%',marginBottom:'0%'}}
                         leftIcon={<Add/>}  
                         primaryText={`Fastir liðir: `}
                         secondaryText={`${talaToString(hopur.fastirLidir,1)} klst.`}
                       />
                       
                       <ListItem
+                        innerDivStyle={{paddingTop: '0%',paddingBottom: '5%',marginTop:'0%',marginBottom:'0%'}}
                         leftIcon={<Add/>}  
                         primaryText={`Vegna nemenda: `}
                         secondaryText={`${talaToString(hopur.vinnumatTotal,1)} klst.`} 
@@ -181,6 +172,7 @@ class NidurstodurSundurlidun extends Component {
                       {
                         hopur.skiptitimar > 0 &&
                         <ListItem
+                          innerDivStyle={{paddingTop: '0%',paddingBottom: '5%',marginTop:'0%',marginBottom:'0%'}}
                           leftIcon={<Add/>} 
                           primaryText={`Vinnumat vegna skiptitíma: `}
                           secondaryText={`${talaToString(hopur.vinnumatSkiptitimar,1)} klst.`}
@@ -188,7 +180,7 @@ class NidurstodurSundurlidun extends Component {
                       }  
                       <ListItem
                         leftIcon={<Remove/>} 
-                        innerDivStyle={{paddingTop: '0%',paddingBottom: '0%',marginTop:'0%',marginBottom:'0%'}}
+                        innerDivStyle={{paddingTop: '0%',paddingBottom: '5%',marginTop:'0%',marginBottom:'0%'}}
                         primaryText={`Skerðing:`}
                         secondaryText={`${talaToString(afangar[heiti].skerding,1)} klst.`}
                       />

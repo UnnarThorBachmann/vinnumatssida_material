@@ -1,13 +1,7 @@
 import React, {Component} from 'react';
 import Toggle from 'material-ui/Toggle';
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-
 
 export default class ToogleView extends Component {
-
-    
-    
-  
 
   changeFulltStarf = (event,toggled)=> {
     

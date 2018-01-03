@@ -16,10 +16,9 @@ import NidurstodurSundurlidunMobile from './nidurstodurSundurlidunMobile.js';
 
 import Rusl from 'material-ui/svg-icons/action/delete';
 import Endurtaka from 'material-ui/svg-icons/action/autorenew';
-import Skapa from 'material-ui/svg-icons/content/create';
 import IconButton from 'material-ui/IconButton';
-import {storedData,storeData,deleteData} from '../utils';
-import {set,refresh} from '../actions';
+import {storeData,deleteData} from '../utils';
+import {refresh} from '../actions';
 import {connect} from 'react-redux';
 
 class StepperProgress extends React.Component {
@@ -145,9 +144,9 @@ class StepperProgress extends React.Component {
                 <Rusl/>
               </IconButton>
             </div>
-            <Media query="(max-width: 768px)">
+            <Media query="(max-width: 425px)">
               {matches =>
-                matches?<NidurstodurSundurlidunMobile/>:<NidurstodurSundurlidun/>
+                matches?<NidurstodurSundurlidunMobile/>:<NidurstodurSundurlidun st={{pageBreakAfter: 'always'}}/>
                               
               }
             </Media>

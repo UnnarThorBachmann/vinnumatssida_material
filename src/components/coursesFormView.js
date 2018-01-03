@@ -1,10 +1,6 @@
 import React, {Component} from 'react';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import AgeView from './ageView.js';
-import LaunaflokkurView from './launaflokkurView.js';
-import ThrepView from './threpView.js';
-import StarfshlutfallView from './starfshlutfallView.js';
 import SynidaeminView from './synidaeminView.js';
 import HeitiView from './heitiView.js';
 import EiningarView from './einingarView.js';
@@ -16,7 +12,6 @@ import SkiptitimarView from './skiptitimarView.js';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import ContentRemove from 'material-ui/svg-icons/content/remove';
 
-import FloatingActionButton from 'material-ui/FloatingActionButton';
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
 

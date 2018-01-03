@@ -51,7 +51,7 @@ export function addProps(afangi,synidaemi) {
 	afangi.undirbuningurKennslu = afangi.stadinKennsla/40*afangi.undirb_kennslu;
 	afangi.fastirLidir = (afangi.timar_namsAetlun + afangi.verkefnisgerd+ afangi.onnur_vinna)*f;
 	afangi.samtalsAnNemenda = afangi.stadinKennsla+afangi.undirbuningurKennslu + afangi.fastirLidir;
-	afangi.skerding = afangi.hopar.length==1?0:(afangi.samtalsAnNemenda+ vinnaVegnaNemenda(afangi.medalfjoldi,afangi))*(1+afangi.skiptitimarHlutfall)*(afangi.skerdingarprosenta)/100;
+	afangi.skerding = afangi.hopar.length===1?0:(afangi.samtalsAnNemenda+ vinnaVegnaNemenda(afangi.medalfjoldi,afangi))*(1+afangi.skiptitimarHlutfall)*(afangi.skerdingarprosenta)/100;
     afangi.hopar = afangi.hopar.map((hopur)=>{
     	return {fjoldi: hopur.fjoldi,
                 vinnumatSkiptitimar:(afangi.samtalsAnNemenda + vinnaVegnaNemenda(hopur.fjoldi,afangi))*afangi.skiptitimarHlutfall,

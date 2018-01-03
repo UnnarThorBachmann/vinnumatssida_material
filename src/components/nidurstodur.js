@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import {grey900,deepOrangeA400} from 'material-ui/styles/colors';
 import {connect} from 'react-redux';
 
 import {List, ListItem} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 
-import {talaToString,vinnaVegnaNemenda,skerdingarprosenta} from '../helpers';
+import {talaToString} from '../helpers';
 const styles = {
   main: {
     marginLeft: '1%',
@@ -24,11 +23,6 @@ const styles = {
 
 
 class Nidurstodur extends Component {
-  constructor(props) {
-    super(props);
-
-  }
- 
 
   render() {
     const {launaflokkur, 
@@ -37,9 +31,7 @@ class Nidurstodur extends Component {
       aldur, 
       starfshlutfall,
       fulltStarf,
-      laun,
       afangar,
-      vinnuskylda,
       kennsluafslattur,
       vinnuskyldaA,
       vinnuskyldaB,

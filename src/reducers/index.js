@@ -14,7 +14,6 @@ import {
 import {vinnuskylda,
   kennsluafslattur,
   Synidaemi,
-  getterState,
   addProps,
   launatafla,
   initialState} from '../helpers';
