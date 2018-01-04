@@ -61,7 +61,7 @@ export function setStarfshlutfall(starfshlutfall) {
 }
 
 export function addAfangi(afangi) {
-
+  
   return {
       type: ADD_AFANGI,
       afangi: afangi

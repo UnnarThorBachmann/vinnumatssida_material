@@ -65,6 +65,19 @@ export function addProps(afangi,synidaemi) {
    
 	return afangi;
 }
+
+export function extendState(afangar,Synidaemi) {
+    const heitin = Object.keys(afangar);
+    
+    for (const heiti of heitin) {
+        afangar[heiti] = addProps({...afangar[heiti], 
+                                    einingar: afangar[heiti].einingar.toString(),
+                                    skiptitimar: afangar[heiti].skiptitimar.toString()}, 
+                                    Synidaemi[afangar[heiti].synidaemi]);
+            
+    }
+    return afangar;
+}
 export const vinnaVegnaNemenda = (nemfjoldi,self)=> {
 		
 		

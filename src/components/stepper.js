@@ -5,7 +5,8 @@ import {
   StepLabel,
 } from 'material-ui/Stepper';
 import Media from 'react-media';
-
+import Rusl from 'material-ui/svg-icons/action/delete';
+import Vista from 'material-ui/svg-icons/content/create';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import AboutTeacherView from './aboutTeacherView.js';
@@ -14,7 +15,6 @@ import Nidurstodur from './nidurstodur.js';
 import NidurstodurSundurlidun from './nidurstodurSundurlidun.js';
 import NidurstodurSundurlidunMobile from './nidurstodurSundurlidunMobile.js';
 
-import Rusl from 'material-ui/svg-icons/action/delete';
 import Endurtaka from 'material-ui/svg-icons/action/autorenew';
 import IconButton from 'material-ui/IconButton';
 import {storeData,deleteData} from '../utils';
@@ -48,25 +48,16 @@ class StepperProgress extends React.Component {
     this.setState({afram: afram})
   }
 
-  save = ()=>{
-    storeData(this.props.storeState);
-
-  }
-
-  delete=()=> {
-    deleteData();
-    this.props.dispatch(refresh());
-
-  }
-
-  save = ()=>{
-    storeData(this.props.storeState);
-  }
 
   delete=()=> {
     deleteData();
     this.props.dispatch(refresh());
     this.setState({stepIndex: 0, finished: false});
+  }
+
+  vista= ()=> {
+
+    storeData(this.props.storeState);
   }
   getStepContent(stepIndex) {
     switch (stepIndex) {
@@ -138,11 +129,19 @@ class StepperProgress extends React.Component {
               </IconButton>
               <IconButton 
                 iconStyle={{color: this.props.iconColor, float: 'right'}}
+                onClick={this.vista}
+                tooltip={'Vista í vafra'}
+              >
+                <Vista/>
+              </IconButton>
+              <IconButton 
+                iconStyle={{color: this.props.iconColor, float: 'right'}}
                 onClick={this.delete}
                 tooltip={'Eyða úr vafra'}
               >
                 <Rusl/>
               </IconButton>
+              
             </div>
             <Media query="(max-width: 425px)">
               {matches =>

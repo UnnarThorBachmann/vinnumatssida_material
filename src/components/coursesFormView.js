@@ -53,10 +53,10 @@ class CourseFormView extends Component {
       kennslustundir: 6,
       lengdKst: 40,
       hopar: [{fjoldi: 25}],
+      skiptitimar: '0',
       heitiNotEmpty: false,
       einingarIsNumber: true,
       skiptitimarIsNumber: true,
-      skiptitimar: '0',
       disabled: true,
       afangar: props.afangar,
       heitin: Object.keys(props.afangar),
@@ -90,7 +90,7 @@ class CourseFormView extends Component {
     this.setState((state)=>{
       return {heiti: heiti,
               heitiNotEmpty: heiti.trim() !== '',
-              disabled: heiti.trim() === '' || !state.einingarIsNumber || !state.skiptitimarIsNumber
+              disabled: heiti.trim() === ''|| heiti.indexOf(',') !== -1 || heiti.indexOf(';') !== -1 || !state.einingarIsNumber || !state.skiptitimarIsNumber
       }
     })
     
@@ -182,7 +182,16 @@ class CourseFormView extends Component {
   addAfangi() {
     const {dispatch} = this.props;
 
-    dispatch(addAfangi({...this.state}));
+    dispatch(addAfangi({
+      heiti: this.state.heiti,
+      einingar: this.state.einingar,
+      synidaemi: this.state.synidaemi,
+      kennsluvikur: this.state.kennsluvikur,
+      kennslustundir: this.state.kennslustundir,
+      lengdKst: this.state.lengdKst,
+      hopar: this.state.hopar,
+      skiptitimar: this.state.skiptitimar
+    }));
     this.setState({selectedHeiti: null});
   }
   deleteAfangi(event) {

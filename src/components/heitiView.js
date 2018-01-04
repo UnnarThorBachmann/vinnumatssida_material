@@ -4,7 +4,7 @@ import TextField from 'material-ui/TextField';
 export default class HeitiView extends Component {
   state = {
     heiti: this.props.heiti,
-    errorTextHeiti: 'Hvað heitir áfanginn?'
+    errorTextHeiti: 'Hvað heitir áfanginn? Ekki nota (semí)kommu'
   };
 
 
@@ -13,7 +13,7 @@ export default class HeitiView extends Component {
   };
   componentWillReceiveProps(nextProps) {
     this.setState({heiti: nextProps.heiti,
-      errorTextHeiti: nextProps.heiti === '' ? 'Hvað heitir áfanginn?': ''
+      errorTextHeiti: (nextProps.heiti === '' || nextProps.heiti.indexOf(',') !== -1 || nextProps.heiti.indexOf(';') !== -1)? 'Hvað heitir áfanginn? Ekki nota (semí)kommu.': ''
     });
   }
 

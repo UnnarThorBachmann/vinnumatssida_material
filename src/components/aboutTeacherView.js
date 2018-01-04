@@ -34,11 +34,7 @@ const styles = {
 class AboutTeacherView extends Component {
   constructor(props) {
     super(props);
-    /*
-    this.state = {
-      fulltStarf: props.fulltStarf,
-      laun: props.laun
-    }*/
+    
     this.changeOnnurStorf = this.changeOnnurStorf.bind(this);
     this.changeLaunaflokkur = this.changeLaunaflokkur.bind(this);
     this.changeThrep = this.changeThrep.bind(this);
