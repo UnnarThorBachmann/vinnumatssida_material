@@ -33,9 +33,9 @@ class Nidurstodur extends Component {
       fulltStarf,
       afangar,
       kennsluafslattur,
-      vinnuskyldaA,
-      vinnuskyldaB,
-      vinnuskyldaC,
+      vinnuskyldaAUmreiknud,
+      vinnuskyldaBUmreiknud,
+      vinnuskyldaCUmreiknud,
       vinnumat,
       totalVinnumat,
       yfirvinna,
@@ -103,7 +103,7 @@ class Nidurstodur extends Component {
                   <ListItem 
                       innerDivStyle={{padding: '0%',margin:'0%',marginTop: '2%'}}
                       primaryText={'B-hluti'}
-                      secondaryText={`${talaToString(vinnuskyldaB,1)} klst.`}
+                      secondaryText={`${talaToString(vinnuskyldaBUmreiknud,1)} klst.`}
                   />
                   <ListItem               
                           innerDivStyle={{padding: '0%',margin:'0%',marginTop: '2%'}}
@@ -127,7 +127,7 @@ class Nidurstodur extends Component {
             <List style={{padding: '0%',margin:'0%'}}>
               <ListItem innerDivStyle={{padding: '0%',margin:'0%'}} 
                 primaryText={`A+B+C:`} 
-                secondaryText={`${talaToString(vinnuskyldaA,1)} + ${talaToString(vinnuskyldaB,1)} + ${talaToString(vinnuskyldaC,1)} = ${talaToString(vinnuskyldaTotal,1)} klst.`}></ListItem>              
+                secondaryText={`${talaToString(vinnuskyldaAUmreiknud,1)} + ${talaToString(vinnuskyldaBUmreiknud,1)} + ${talaToString(vinnuskyldaCUmreiknud,1)} = ${talaToString(vinnuskyldaTotal,1)} klst.`}></ListItem>              
             </List>
             
             <h4 style={{marginBottom: '1%',marginTop: '3%'}}>Vinnumat-vinnuskylda</h4>   
@@ -216,16 +216,26 @@ const mapStateToProps = (state)=> ({
       return vinnuskyldaOnnur>0?parseFloat(this.vinnuskylda)*state.starfshlutfall/100:parseFloat(this.timar);
     },
     get starfshlutfallReiknad() {
-      return 100*(parseFloat(this.timar)+this.vinnuskyldaB + this.vinnumat)/(this.vinnuskyldaA + this.vinnuskyldaB + this.vinnuskyldaC);
+      const temp = Math.max(this.starfshlutfall,this.starfshlutfall*(parseFloat(this.timar)+this.vinnumat)/(this.vinnuskyldaA + this.vinnuskyldaC)); 
+      return Math.min(temp,100);
+    },
+    get vinnuskyldaAUmreiknud() {
+      return this.vinnuskyldaA*this.starfshlutfallReiknad/this.starfshlutfall;
+    },
+    get vinnuskyldaBUmreiknud() {
+      return this.vinnuskyldaB*this.starfshlutfallReiknad/this.starfshlutfall;
+    },
+    get vinnuskyldaCUmreiknud() {
+      return this.vinnuskyldaC*this.starfshlutfallReiknad/this.starfshlutfall;
     },
     get totalVinnumat() {
-      return this.vinnumat + this.vinnuskyldaB + parseFloat(this.timar);
+      return this.vinnumat + this.vinnuskyldaBUmreiknud + parseFloat(this.timar);
     },
     get vinnuskyldaTotal() {
-      return this.vinnuskyldaA + this.vinnuskyldaB+this.vinnuskyldaC;
+      return (this.vinnuskyldaA + this.vinnuskyldaB+this.vinnuskyldaC)*this.starfshlutfallReiknad/this.starfshlutfall;
     },
     get yfirvinna() {
-      return this.starfshlutfallReiknad < 100 ? 0:this.totalVinnumat-this.vinnuskyldaTotal;
+      return Math.max(0,this.totalVinnumat-this.vinnuskyldaTotal);
     },
     get yfirvinnulaun() {
       return this.yfirvinna*1.0385/100*this.grunnlaun;

@@ -1,7 +1,7 @@
 import {initialState} from '../helpers';
 
 //const STORAGE_KEY = '1aff148nvm3493ma6';
-
+/*
 function getSize() {
 	let summa = 0;
 	for (let key of Object.keys(localStorage)) {
@@ -9,9 +9,9 @@ function getSize() {
 		summa += localStorage[key].length;
 	}
 	console.log(`Samtals ${summa.toString()}`);
-}
+}*/
  export function storedData() {
-  getSize();
+  //getSize();
   
   let storedState = {aldur: localStorage.getItem('aldur')? localStorage.getItem('aldur'): initialState.aldur,
   						fulltStarf: localStorage.getItem('fulltStarf')? (localStorage.getItem('fulltStarf')==='true'): initialState.fulltStarf,
