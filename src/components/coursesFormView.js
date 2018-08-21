@@ -256,6 +256,7 @@ class CourseFormView extends Component {
 
   }
   render() {
+    
     return (
       <div>
         <div style={{display: 'flex',
